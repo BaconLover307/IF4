@@ -5,7 +5,7 @@ using namespace std;
 class Hello {
 	public:
 	Hello() {
-		cout << "Hello world!" endl;
+		cout << "Hello world!" << endl;
 	}
 };
 
