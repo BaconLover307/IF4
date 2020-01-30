@@ -1,4 +1,3 @@
-/ Polinom.hpp
 #ifndef POLINOM_HPP
 #define POLINOM_HPP
 
