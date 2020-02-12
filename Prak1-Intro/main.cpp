@@ -1,25 +1,24 @@
-#include "A.hpp"
+/* Nama         : Gregorius Jovan Kresnadi */
+/* NIM          : 13518135 */
+/* Tanggal      : 30-01-2020 */
+/* Program      : main.cpp */
+/* Deskripsi    : Main untuk box.cpp */
+
+#include "Box.hpp"
 #include <iostream>
 
 using namespace std;
 
 int main() {
 
-	A x('1');
-	A y('2');
-	A z(x);
-	z = y;
-	y.show();
+	Box * x = new Box(2);
+	Box y;
+	Box z(1);
+	y = *x;
+	Box a(z);
+	x -> peek();
+	z.peek();
+	delete x;
 
 	return 0;
-	/*
-	A * a = new A('1');
-	A * b = new A('2');
-	A * c = new A(*a);
-	c = b;
-	b -> show();
-	delete c;
-	delete b;
-	delete a;
-	*/
 }
