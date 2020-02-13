@@ -25,3 +25,18 @@ double RekeningGiro::getSukuBunga() const{
 double RekeningGiro::hitungBunga() {
 	return Rekening::getSaldo() * sukuBunga;
 }
+
+/*
+MotorCycle::MotorCycle() : Vehicle() {
+
+}
+
+void MotorCycle::drive() {
+	cout << "Use helmet" << endl;
+	Vehicle::drive();
+}
+
+void Car::openDoor() {
+	cout << "Door opened" << endl;
+}
+*/

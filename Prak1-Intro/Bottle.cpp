@@ -11,19 +11,17 @@ using namespace std;
 
 int Bottle::numOfBottle = 0;
 
-Bottle::Bottle() : id(numOfBottle+1) {
-    height = 10.00;
-    radius = 10.00;
-    waterHeight = 0;
+Bottle::Bottle(float height, float radius) : id(numOfBottle+1) {
+  this -> height = height;
+  this -> radius = radius;
+  waterHeight = 0;
+  numOfBottle++;
+}
+
+Bottle::Bottle() : id(numOfBottle+1), height(10), radius(10), waterHeight(0) {
     numOfBottle++;
 }
 
-Bottle::Bottle(float height, float radius) : id(numOfBottle+1) {
-    this -> height = height;
-    this -> radius = radius;
-    waterHeight = 0;
-    numOfBottle++;
-}
 
 Bottle::Bottle(const Bottle& b) : id(b.id) {
     height = b.height;

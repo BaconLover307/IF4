@@ -1,34 +1,16 @@
+/* Nama         : Gregorius Jovan Kresnadi */
+/* NIM          : 13518135 */
+/* Tanggal      : 30-01-2020 */
+/* Program      : main.cpp */
+/* Deskripsi    : Main untuk Bottle.cpp */
+
 #include "Bottle.hpp"
 #include <iostream>
 
 using namespace std;
 
 int main() {
-    Bottle A();
-    /*
-    Polinom B(3);
-    cout << "Masukkan " << A.getDerajat() << " nilai untuk Polinom A " << endl;
-    A.input();
-    cout << "Masukkan " << B.getDerajat() << " nilai untuk Polinom B " << endl;
-    B.input();
-    cout << "Print doang" << endl;
-    A.print();
-    B.print();
-    Polinom C;
-    C = A + B;
-    cout << "A + B" << endl;
-    C.print();
-    C = A - B;
-    cout << "A - B" << endl;
-    C.print();
-    C = A * 3;
-    cout << "A * 3" << endl;
-    C.print();
-    C = A.derive();
-    cout << "Turunan A" << endl;
-    C.print();
-    cout << "Masukin x = 2 ke A" << endl;
-    cout << A.substitute(2) << endl;
-    */
-    return 0;
+	Bottle A;
+
+	return 0;
 }
