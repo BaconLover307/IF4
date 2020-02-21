@@ -1,0 +1,70 @@
+IF2240 PRAKTIKUM-1
+Tanggal	: 14-02-2020
+Nama	: Gregorius Jovan Kresnadi
+NIM	: 13518135
+------------------------------------------------------------
+
+1. select productName, buyPrice, quantityInStock from products where quantityInStock < 1000 and buyPrice < (select avg(buyPrice) from products);
++---------------------------------------------+----------+-----------------+
+| productName                                 | buyPrice | quantityInStock |
++---------------------------------------------+----------+-----------------+
+| 1911 Ford Town Car                          |    33.30 |             540 |
+| P-51-D Mustang                              |    49.00 |             992 |
+| 1960 BSA Gold Star DBD34                    |    37.32 |              15 |
+| 1996 Peterbilt 379 Stake Bed with Outrigger |    33.61 |             814 |
+| 1928 Ford Phaeton Deluxe                    |    33.02 |             136 |
+| 2002 Yamaha YZR M1                          |    34.17 |             600 |
+| The Mayflower                               |    43.30 |             737 |
+| Pont Yacht                                  |    33.30 |             414 |
++---------------------------------------------+----------+-----------------+
+8 rows in set (0.00 sec)
+
+2. select concat(employees.firstName, " ", employees.lastName) as fullName, customers.customerName from employees inner join customers on employees
+
+100 rows in set (0.00 sec)
+
+
+3. select distinct products.productline from products natural join orders, orderdetails, customers, employees, offices where offices.city = "Boston" and offices.officeCode = employees.officeCode and employees.employeeNumber = customers.salesRepEmployeeNumber and customers.customerNumber = orders.customerNumber and orders.orderNumber = orderdetails.ordernumber and products.productCode = orderdetails.productCode;
+
++------------------+
+| productline      |
++------------------+
+| Classic Cars     |
+| Trucks and Buses |
+| Vintage Cars     |
+| Planes           |
+| Ships            |
+| Motorcycles      |
+| Trains           |
++------------------+
+7 rows in set (0.00 sec)
+
+4. create view cust_avg_with_car as select customerName as cust_name, avg(amount) as avg_transaction from customers natural join payments, orders, orderdetails, products where products.productLine = "Classic Cars" and  customers.customerNumber = payments.customerNumber and orders.customerNumber = customers.customerNumber and orders.orderNumber = orderdetails.ordernumber and products.productCode = orderdetails.productCode group by cust_name;
+
+Query OK, 0 rows affected (0.04 sec)
+
+5. create view not_tokyo_employee_cust as select count(customerNumber) cust_count, concat(employees.firstName, " ", employees.lastName) as emp_name from employees natural join customers, offices where offices.city <> "Tokyo" and employees.officeCode = offices.officeCode and employees.employeeNumber = customers.salesRepEmployeeNumber group by emp_name;
+
+Query OK, 0 rows affected (0.02 sec)
+
+6. select orders.orderNumber, orderdetails.quantityOrdered, products.quantityInStock from orders natural join orderdetails, products where orderdetails.quantityOrdered > products.quantityInStock;
+
+
+7. 
+
+8. 
+
+9.
+
+10. update products set quantityInStock = quantityInStock + 250 where quantityInStock >= 1000;
+Query OK, 98 rows affected (0.05 sec)
+Rows matched: 98  Changed: 98  Warnings: 0
+
+update products set quantityInStock = quantityInStock + 1000 where quantityInStock < 1000;
+Query OK, 12 rows affected (0.05 sec)
+Rows matched: 12  Changed: 12  Warnings: 0
+
+11. update orders set status = "Shippped" where
+
+12. update 
+
