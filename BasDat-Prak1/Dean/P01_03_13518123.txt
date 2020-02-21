@@ -1,0 +1,383 @@
+IF2240 PRAKTIKUM-1
+Tanggal	: 7 Februari 2020
+Nama	: Naufal Dean Anugrah
+NIM		: 13518123
+------------------------------------------------------------
+
+1.
+SELECT first_name, last_name, hire_date
+FROM employees
+WHERE gender="F";
+25703 rows in set (0.02 sec)
+
+2.
+SELECT first_name, last_name
+FROM employees
+WHERE birth_date LIKE "%-02-07";
++----------------+----------------+
+| first_name     | last_name      |
++----------------+----------------+
+| Gretta         | Rando          |
+| Khun           | Sewelson       |
+| Parviz         | Kalloufi       |
+| Przemyslawa    | Shinomoto      |
+| Gill           | Heusch         |
+| Manohar        | Lorho          |
+| Mountaz        | Famili         |
+| Goo            | Dulli          |
+| Shir           | Cyre           |
+| Eckart         | Marsiglia      |
+| Tetsushi       | Makrucki       |
+| Richara        | Guardalben     |
+| Honesty        | Haumacher      |
+| Ronnie         | Linares        |
+| Bogdan         | Puppe          |
+| Hatsukazu      | Luce           |
+| Lena           | Liedekerke     |
+| Patricia       | Willoner       |
+| Amalendu       | Gecseg         |
+| Sanjai         | Puppo          |
+| Wojceich       | Leivant        |
+| Shuky          | Valtorta       |
+| Yinghua        | Selvestrel     |
+| Heekeun        | Rotem          |
+| Remmert        | Rehfuss        |
+| Khatoun        | Rothe          |
+| Kazuhiko       | Staudhammer    |
+| Ziva           | Alblas         |
+| Luisa          | Vidya          |
+| Marc           | Skogmar        |
+| Dietrich       | Highland       |
+| Eberhardt      | Kornyak        |
+| Haldun         | Atchley        |
+| Sven           | Kadhim         |
+| Teunis         | Wolniewicz     |
+| Kellyn         | Fadgyas        |
+| Arnould        | Chinal         |
+| Golgen         | Kaminger       |
+| Kendra         | Biros          |
+| Van            | Pettit         |
+| Mrinalini      | Falby          |
+| Mohamadou      | Cardazo        |
+| Urs            | Lambe          |
+| Hugh           | Levergood      |
+| Vasilis        | Ravishankar    |
+| Deniz          | Hasham         |
+| Abdelwaheb     | Tasistro       |
+| Gill           | Heydon         |
+| Kazuhira       | Perfilyeva     |
+| Odoardo        | Budinsky       |
+| Shigeichiro    | Ruther         |
+| Yucai          | Merle          |
+| Saddek         | Leaver         |
+| Ymte           | Gunderson      |
+| Yurij          | Socorro        |
+| Gian           | Narlikar       |
+| Gou            | Godskesen      |
+| Dung           | Theuretzbacher |
+| Sverrir        | Borstler       |
+| Kristina       | Erie           |
+| Heping         | Melton         |
+| Otmar          | Frolund        |
+| Seongbin       | Baja           |
+| Xinan          | Improta        |
+| Phillip        | Billawala      |
+| Kazuhiko       | Broomell       |
+| Mohan          | Rande          |
+| Geoffry        | Skafidas       |
+| Macha          | Kroll          |
+| Shem           | Schaft         |
+| Arvind         | Serot          |
+| Anestis        | Argence        |
+| Akhilish       | Meszaros       |
+| Amstein        | Dalphin        |
+| Munenori       | Chelton        |
+| Constantino    | Hasham         |
+| Percy          | Gips           |
+| Paddy          | Madeira        |
+| Adin           | Flanders       |
+| Gopalakrishnan | Smeets         |
+| Arvind         | Paciorek       |
+| Gopalakrishnan | Ozeri          |
+| Mamdouh        | Rosenbaum      |
+| Gila           | Ginneken       |
+| Bodo           | Neiman         |
+| Udo            | Salverda       |
+| Woody          | Bala           |
+| Kazunori       | Shrader        |
+| Lubomir        | Porenta        |
+| Saeko          | Magliocco      |
+| Ennio          | Muniz          |
+| Arif           | Lichtman       |
+| Oldrich        | Streit         |
+| Shan           | Mahnke         |
+| Oddvar         | Spelt          |
+| Jiong          | Ghemri         |
+| Arne           | Skrikant       |
+| Yuchang        | Khasidashvili  |
+| Akeel          | Bisiani        |
+| Elgin          | Choobineh      |
+| Duangkaew      | Aumann         |
+| Xiaocheng      | Rajala         |
+| Dayanand       | Kalorkoti      |
+| Suebskul       | Facello        |
+| Goncalo        | Malinowski     |
+| Fabrizio       | Kopetz         |
+| Kinh           | Llado          |
+| Taiji          | Kossowski      |
+| Torsten        | Quittner       |
+| Leszek         | Iisaku         |
+| Magy           | Schaar         |
+| Hatem          | Itzigehl       |
+| Mantis         | Vecchio        |
+| Weiwu          | Kitai          |
+| Bokyung        | Lenart         |
+| Werner         | Silva          |
+| Guenter        | Rahier         |
+| Sajjad         | Jonsson        |
+| Randy          | Keirsey        |
+| Harngdar       | Shumilov       |
+| Nahid          | Bernardeschi   |
+| Tokuyasu       | Vuskovic       |
+| Dipayan        | Anick          |
+| Jasminko       | Antonakopoulos |
+| Roselyn        | Iacovou        |
+| Olivera        | Shumilov       |
+| Toong          | Kaelbling      |
+| Kayoko         | Morrin         |
+| Utpal          | Colorni        |
+| Denis          | Zuberek        |
+| Koichi         | Llado          |
+| Temple         | Bolsens        |
+| Katsuyuki      | Bennis         |
+| Larisa         | Straney        |
+| Bedrich        | Driscoll       |
+| Giordano       | Portugali      |
+| Claude         | Mahnke         |
+| Chriss         | Lakshmanan     |
+| Leszek         | Zaiane         |
+| Moon           | Chaudhuri      |
+| Yishai         | Lammel         |
+| Vitaly         | Anick          |
+| Shigeo         | Angelov        |
+| Along          | Perry          |
+| Ottavia        | Doering        |
+| Shigeaki       | Kulisch        |
+| Boguslaw       | Skrikant       |
+| Roddy          | Schahn         |
+| Adas           | Jakobus        |
+| Francoise      | Krupka         |
+| Geoffrey       | Billingsley    |
+| Fuqing         | Gini           |
+| Moon           | Ruemmler       |
+| Christoper     | Kroon          |
+| Yannis         | Noriega        |
+| Tua            | Masamoto       |
+| Zhiwei         | Senzako        |
+| Florian        | Munke          |
+| Przemyslawa    | Bridgland      |
+| Michaela       | Lodder         |
+| Seongbin       | Malinowski     |
+| Wonhee         | Gyorkos        |
+| Aiman          | Sidou          |
+| Bangqing       | Baez           |
+| Yishay         | Benner         |
+| Katsuo         | Werthner       |
+| Ibibia         | Standera       |
+| Tadahiro       | Gadepally      |
+| Yefim          | Waterhouse     |
+| Karlis         | Cmelik         |
+| Subir          | Pocchiola      |
+| Tsutomu        | Brender        |
+| Lokesh         | Meriste        |
+| Fei            | Quadeer        |
+| Jayesh         | Shobatake      |
+| Kannan         | Uehara         |
+| Qunsheng       | Joslin         |
+| Neven          | Taubenfeld     |
+| Jixiang        | Papadias       |
+| Arno           | Foong          |
+| Tadanori       | Shackell       |
+| Claude         | Sudkamp        |
+| Mircea         | Karlin         |
+| Zhensheng      | Comyn          |
+| Pintsang       | Ratzlaff       |
+| Alexius        | Lanzelotte     |
+| Shrikanth      | Benveniste     |
+| Suvo           | Ertl           |
+| Jolita         | Peron          |
+| Terresa        | Chenney        |
+| Valter         | Gulak          |
+| Barna          | Kusalik        |
+| Gonzalo        | Stavenow       |
+| Martial        | Hashii         |
+| Lunjin         | Dalton         |
+| Fusako         | Arlazarov      |
+| Soenke         | Christ         |
++----------------+----------------+
+197 rows in set, 1 warning (0.02 sec)
+
+3.
+SELECT first_name, emp_no
+FROM employees NATURAL JOIN titles
+WHERE title="Staff" AND last_name="Stassinopoulos";
++------------+--------+
+| first_name | emp_no |
++------------+--------+
+| Xiping     |  30877 |
+| Adly       |  41571 |
+| Limsoon    |  51231 |
+| Larisa     |  63785 |
+| Soenke     |  72277 |
+| Branimir   |  78313 |
+| Jiang      |  86661 |
+| Manohar    |  90555 |
+| Gift       | 105579 |
+| Chaoyi     | 106865 |
+| Jouko      | 203991 |
+| Demin      | 206467 |
+| Gio        | 216061 |
+| Lillian    | 218995 |
+| Shaibal    | 219137 |
+| Kokou      | 220755 |
++------------+--------+
+16 rows in set (0.02 sec)
+
+4.
+SELECT first_name, last_name
+FROM employees NATURAL JOIN titles
+WHERE title="Manager";
++-------------+--------------+
+| first_name  | last_name    |
++-------------+--------------+
+| Vishwani    | Minakawa     |
+| Ebru        | Alpin        |
+| Shirish     | Ossenbruggen |
+| Krassimir   | Wegerle      |
+| DeForest    | Hagimont     |
+| Leon        | DasSarma     |
+| Peternela   | Onuegbe      |
+| Rutger      | Hofmeyr      |
+| Przemyslawa | Kaelbling    |
+| Hauke       | Zhang        |
+| Xiaobin     | Spinelli     |
+| Yuchang     | Weedman      |
++-------------+--------------+
+12 rows in set (0.02 sec)
+
+5.
+SELECT title, COUNT(emp_no)
+FROM titles
+GROUP BY title;
++--------------------+---------------+
+| title              | COUNT(emp_no) |
++--------------------+---------------+
+| Assistant Engineer |          3245 |
+| Engineer           |         24802 |
+| Manager            |            12 |
+| Senior Engineer    |         21040 |
+| Senior Staff       |         20207 |
+| Staff              |         23181 |
+| Technique Leader   |          3269 |
++--------------------+---------------+
+7 rows in set (0.07 sec)
+
+6.
+SELECT emp_no, first_name, last_name
+FROM (employees JOIN titles USING(emp_no)) JOIN salaries USING(emp_no)
+WHERE title="Assistant Engineer" AND salary>=75637 AND first_name LIKE "S%";
+498 rows in set (0.05 sec)
+
+7.
+SELECT emp_no, birth_date
+FROM employees
+WHERE hire_date BETWEEN "1994-01-25" AND "1994-06-23"
+ORDER BY birth_date DESC;
+1295 rows in set (0.02 sec)
+
+8.
+SELECT first_name, last_name
+FROM (employees NATURAL JOIN dept_manager) NATURAL JOIN departments
+WHERE dept_name="Quality Management";
++------------+-----------+
+| first_name | last_name |
++------------+-----------+
+| Peternela  | Onuegbe   |
+| Rutger     | Hofmeyr   |
++------------+-----------+
+2 rows in set (0.00 sec)
+
+9.
+SELECT AVG(salary) as average_salary, YEAR(from_date)
+FROM salaries
+WHERE YEAR(from_date) <= 2000
+GROUP BY YEAR(from_date);
++----------------+-----------------+
+| average_salary | YEAR(from_date) |
++----------------+-----------------+
+|     53512.0525 |            1985 |
+|     54285.5525 |            1986 |
+|     55070.9902 |            1987 |
+|     55840.4567 |            1988 |
+|     56765.1556 |            1989 |
+|     57801.3231 |            1990 |
+|     58808.1947 |            1991 |
+|     59796.5901 |            1992 |
+|     60798.0935 |            1993 |
+|     61802.7632 |            1994 |
+|     62732.8478 |            1995 |
+|     63686.2066 |            1996 |
+|     64632.6196 |            1997 |
+|     65658.0723 |            1998 |
+|     66662.6297 |            1999 |
+|     68695.8624 |            2000 |
++----------------+-----------------+
+16 rows in set (0.24 sec)
+
+10.
+(SELECT dept_name, COUNT(emp_no) as count
+FROM departments NATURAL JOIN dept_manager
+GROUP BY dept_name
+ORDER BY COUNT(emp_no) ASC
+LIMIT 4)
+ORDER BY count DESC;
++-----------------+-------+
+| dept_name       | count |
++-----------------+-------+
+| Human Resources |     1 |
+| Marketing       |     1 |
+| Production      |     1 |
+| Finance         |     1 |
++-----------------+-------+
+4 rows in set (0.00 sec)
+
+11. 
+SELECT dept_name
+FROM departments
+WHERE dept_no NOT IN (
+	SELECT dept_no
+	FROM dept_manager
+	)
+ORDER BY dept_name DESC;
++-----------+
+| dept_name |
++-----------+
+| Research  |
++-----------+
+1 row in set (0.00 sec)
+
+12.
+SELECT dept_name, COUNT(emp_no) as employ_count
+FROM (employees NATURAL JOIN dept_emp) NATURAL JOIN departments
+WHERE gender="F"
+GROUP BY dept_name
+ORDER BY employ_count DESC
+LIMIT 3;
++-------------+--------------+
+| dept_name   | employ_count |
++-------------+--------------+
+| Development |         7198 |
+| Production  |         6305 |
+| Sales       |         4532 |
++-------------+--------------+
+3 rows in set (0.06 sec)

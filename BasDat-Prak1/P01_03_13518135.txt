@@ -9,6 +9,11 @@ NIM	: 13518135
 
 2. select first_name, last_name from employees where birth_date like '%02-07';
 197 rows in set, 1 warning (0.02 sec)
+
+-->
+SELECT first_name, last_name
+FROM employees
+WHERE MONTH(birth_date) = 2 AND DAY(birth_date) = 7;
  
 3. select e.first_name, e.emp_no from employees e, titles t where e.emp_no = t.emp_no and t.title = 'Staff' and e.last_name = "Stassinopoulos";
 +------------+--------+
@@ -81,7 +86,9 @@ NIM	: 13518135
 +------------+-----------+
 2 rows in set (0.00 sec)
 
-9. select avg(salary) from salaries where year(from_date) <= 2000 group by year(from_date);
+9. SELECT AVG(salary) 	
+FROM salaries
+where year(from_date) <= 2000 group by year(from_date);
 +-------------+
 | avg(salary) |
 +-------------+
@@ -105,7 +112,9 @@ NIM	: 13518135
 16 rows in set (0.24 sec)
 
 
-10.  select d.dept_name, count(m.dept_no) as jumlah_manager from dept_manager m, departments d where m.dept_no = d.dept_no group by d.dept_name order by jumlah_manager limit 4;
+10.  select d.dept_name, count(m.dept_no) as jumlah_manager
+from dept_manager m, departments d
+where m.dept_no = d.dept_no group by d.dept_name order by jumlah_manager limit 4;
 +-----------------+----------------+
 | dept_name       | jumlah_manager |
 +-----------------+----------------+
@@ -116,7 +125,13 @@ NIM	: 13518135
 +-----------------+----------------+
 4 rows in set (0.00 sec)
 
-11. select distinct d.dept_name from dept_manager m, departments d where d.dept_no not in (select distinct dept_no from dept_manager) order by dept_name desc;
+11. select distinct d.dept_name
+from dept_manager m, departments 
+where d.dept_no not in (
+	select distinct dept_no
+	from dept_manager
+)
+order by dept_name desc;
 +-----------+
 | dept_name |
 +-----------+
@@ -124,7 +139,11 @@ NIM	: 13518135
 +-----------+
 1 row in set (0.00 sec)
 
-12. select d.dept_name, count(e.emp_no) as employ_count from employees e, dept_emp de, departments d where e.emp_no = de.emp_no and de.dept_no = d.dept_no and e.gender = 'F' group by d.dept_no order by employ_count desc limit 3; 
+12. select d.dept_name, count(e.emp_no) as employ_count
+from employees e, dept_emp de, departments d
+where e.emp_no = de.emp_no and de.dept_no = d.dept_no and e.gender = 'F'
+group by d.dept_no
+order by employ_count desc limit 3; 
 +-------------+--------------+
 | dept_name   | employ_count |
 +-------------+--------------+

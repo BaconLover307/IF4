@@ -1,0 +1,376 @@
+IF2240 UJIAN PRAKTIKUM
+Tanggal	: 21-02-2020
+Nama	: Gregorius Jovan Kresnadi
+NIM		: 13518135
+------------------------------------------------------------
+
+1.
+SELECT namafilm, genre, imdbrating
+FROM film NATURAL JOIN film_has_genre
+WHERE (LENGTH(namafilm) < 10) AND (namafilm LIKE '___ %') AND (namafilm NOT LIKE '% _____') AND (genre = 'Drama' OR genre LIKE 'S%')
+ORDER BY imdbrating desc;
+
++----------+--------+------------+
+| namafilm | genre  | imdbrating |
++----------+--------+------------+
+| The Hunt | Drama  |       8.30 |
+| The Crow | Drama  |       7.60 |
+| Cop Land | Drama  |       6.90 |
+| Sky High | Sci-Fi |       6.20 |
++----------+--------+------------+
+4 rows in set (0.00 sec)
+
+2.
+SELECT namafilm, (
+CASE WHEN kemampuan IS Null THEN 'Tidak ada kemampuan'
+ELSE kemampuan
+END) as kemampuan
+FROM film LEFT OUTER JOIN film_has_kemampuanfilm
+ON film.idfilm = film_has_kemampuanfilm.idfilm;
+
+221 rows in set (0.00 sec)
+
+
+3.
+SELECT namafilm, genre, count(idkursi)
+FROM film_has_genre
+NATURAL JOIN film
+NATURAL JOIN penayangan
+NATURAL JOIN reservasi
+GROUP BY namafilm, genre;
+
+363 rows in set (0.32 sec)
+
+4.
+SELECT namafilm, count(idkursi) as jml_penonton
+FROM film
+NATURAL JOIN penayangan
+NATURAL JOIN reservasi
+WHERE tahun < 1998
+GROUP BY namafilm, tahun
+HAVING jml_penonton > 352;
+
++-----------------------------------------------+--------------+
+| namafilm                                      | jml_penonton |
++-----------------------------------------------+--------------+
+| Bambi                                         |          883 |
+| Bang                                          |          663 |
+| Blazing Saddles                               |          986 |
+| Can't Stop the Music                          |          455 |
+| Cop Land                                      |          722 |
+| Dune                                          |          772 |
+| Hang 'Em High                                 |          904 |
+| Intolerance: Love's Struggle Throughout the A |         1059 |
+| Jackie Brown                                  |         1188 |
+| Leaving Las Vegas                             |         1279 |
+| M*A*S*H                                       |         1080 |
+| Major League                                  |          948 |
+| Niagara                                       |          831 |
+| Nikita                                        |         1224 |
+| On Deadly Ground                              |          357 |
+| Ordet                                         |         1405 |
+| Pandora's Box                                 |         1116 |
+| Predator 2                                    |          581 |
+| Psych                                         |         1053 |
+| Pulp Fiction                                  |         1349 |
+| Red River                                     |          954 |
+| Schindler's List                              |         1300 |
+| Scream: The TV Series                         |          897 |
+| Se7en                                         |         1289 |
+| The American President                        |          880 |
+| The Apostle                                   |         1051 |
+| The Beyond                                    |          811 |
+| The Crow                                      |         1069 |
+| The Dead Zone                                 |         1010 |
+| The Night Visitor                             |          842 |
+| The Secret                                    |          940 |
+| Things to Do in Denver When You're Dead       |          822 |
+| Tom Jones                                     |          885 |
+| Under Siege 2: Dark Territory                 |          505 |
+| Unforgotten                                   |         1043 |
+| Veronica Mars                                 |         1333 |
+| Welcome to the Dollhouse                      |         1006 |
++-----------------------------------------------+--------------+
+37 rows in set (0.03 sec)
+
+5.
+SELECT namafilm, namastudio, waktumulai, (count(kursi.idkursi) - count(reservasi.idkursi)) as jml_kursi_kosong
+FROM film
+NATURAL JOIN penayangan
+NATURAL JOIN studio
+NATURAL JOIN kursi
+NATURAL JOIN reservasi
+GROUP BY namafilm, namastudio, waktumulai;
+
+955 rows in set (0.22 sec)
+
+6.
+SELECT namafilm, count(idkursi) as watch_count
+FROM film
+NATURAL JOIN penayangan
+NATURAL JOIN reservasi
+GROUP BY namafilm
+ORDER BY watch_count desc;
+
++-----------------------------------------------+-------------+
+| namafilm                                      | watch_count |
++-----------------------------------------------+-------------+
+| Lock, Stock and Two Smoking Barrels           |        1416 |
+| Ordet                                         |        1405 |
+| Pulp Fiction                                  |        1349 |
+| Veronica Mars                                 |        1333 |
+| Schindler's List                              |        1300 |
+| Se7en                                         |        1289 |
+| Leaving Las Vegas                             |        1279 |
+| The Hunt                                      |        1262 |
+| Nikita                                        |        1224 |
+| Jackie Brown                                  |        1188 |
+| Crash                                         |        1168 |
+| Smiling Fish & Goat on Fire                   |        1167 |
+| Hugo                                          |        1153 |
+| Volver                                        |        1135 |
+| Pandora's Box                                 |        1116 |
+| Still Alice                                   |        1115 |
+| Shrek                                         |        1110 |
+| Water                                         |        1104 |
+| Moulin Rouge!                                 |        1081 |
+| M*A*S*H                                       |        1080 |
+| Milk                                          |        1077 |
+| The Crow                                      |        1069 |
+| Intolerance: Love's Struggle Throughout the A |        1059 |
+| Psych                                         |        1053 |
+| The Apostle                                   |        1051 |
+| We Need to Talk About Kevin                   |        1050 |
+| Run Lola Run                                  |        1049 |
+| Unforgotten                                   |        1043 |
+| The Wind That Shakes the Barley               |        1013 |
+| The Dead Zone                                 |        1010 |
+| Welcome to the Dollhouse                      |        1006 |
+| An American in Hollywood                      |        1000 |
+| The Jungle Book                               |         990 |
+| Glory Road                                    |         988 |
+| Blazing Saddles                               |         986 |
+| There's Something About Mary                  |         980 |
+| Live Free or Die Hard                         |         963 |
+| End of Watch                                  |         957 |
+| Red River                                     |         954 |
+| Major League                                  |         948 |
+| Vicky Cristina Barcelona                      |         946 |
+| The Secret                                    |         940 |
+| King Kong                                     |         915 |
+| Auto Focus                                    |         911 |
+| Hang 'Em High                                 |         904 |
+| Scream: The TV Series                         |         897 |
+| Wendy and Lucy                                |         890 |
+| Fetching Cody                                 |         889 |
+| The Importance of Being Earnest               |         886 |
+| Tom Jones                                     |         885 |
+| Bambi                                         |         883 |
+| The American President                        |         880 |
+| Jurassic World                                |         875 |
+| Contraband                                    |         870 |
+| George Washington                             |         866 |
+| All Good Things                               |         861 |
+| From Hell                                     |         857 |
+| Epic                                          |         847 |
+| The Night Visitor                             |         842 |
+| Niagara                                       |         831 |
+| Jersey Boys                                   |         828 |
+| Evolution                                     |         827 |
+| Things to Do in Denver When You're Dead       |         822 |
+| The Whole Ten Yards                           |         819 |
+| The Beyond                                    |         811 |
+| Bottle Shock                                  |         804 |
+| Two Lovers and a Bear                         |         796 |
+| Jesus' Son                                    |         793 |
+| Stargate: The Ark of Truth                    |         790 |
+| Dune                                          |         772 |
+| Fair Game                                     |         770 |
+| The Yards                                     |         760 |
+| Happy, Texas                                  |         756 |
+| Hannibal Rising                               |         749 |
+| Predators                                     |         746 |
+| Swing Vote                                    |         737 |
+| Cop Land                                      |         722 |
+| Shattered                                     |         721 |
+| High Crimes                                   |         719 |
+| Alone with Her                                |         712 |
+| Soul Surfer                                   |         705 |
+| The Dark Hours                                |         698 |
+| Jurassic Park III                             |         694 |
+| Snake Eyes                                    |         692 |
+| Snow White and the Huntsman                   |         688 |
+| Magic Mike                                    |         686 |
+| Evil Dead                                     |         670 |
+| The Four Feathers                             |         669 |
+| The FP                                        |         665 |
+| Bang                                          |         663 |
+| The Amityville Horror                         |         662 |
+| Pride and Prejudice and Zombies               |         662 |
+| Babe: Pig in the City                         |         661 |
+| Doomsday                                      |         656 |
+| Formula 51                                    |         651 |
+| The Betrayed                                  |         649 |
+| Minions                                       |         634 |
+| The Night Listener                            |         631 |
+| Ride Along 2                                  |         629 |
+| Flawless                                      |         625 |
+| 40 Days and 40 Nights                         |         621 |
+| Zipper                                        |         618 |
+| Breakin' All the Rules                        |         609 |
+| Among Giants                                  |         597 |
+| Sky High                                      |         593 |
+| No Good Deed                                  |         582 |
+| Predator 2                                    |         581 |
+| Pompeii                                       |         559 |
+| The Brown Bunny                               |         556 |
+| Against the Ropes                             |         518 |
+| Point Break                                   |         515 |
+| Under Siege 2: Dark Territory                 |         505 |
+| Woman on Top                                  |         501 |
+| The Lizzie McGuire Movie                      |         498 |
+| Sinister 2                                    |         464 |
+| Can't Stop the Music                          |         455 |
+| Atlas Shrugged: Who Is John Galt?             |         448 |
+| Amnesiac                                      |         385 |
+| Black Nativity                                |         360 |
+| On Deadly Ground                              |         357 |
+| Spy Kids 3-D: Game Over                       |         356 |
+| Jason Goes to Hell: The Final Friday          |         310 |
+| A Warrior's Tail                              |         283 |
+| Batman & Robin                                |         241 |
+| Dancin' It's On                               |         177 |
++-----------------------------------------------+-------------+
+125 rows in set (0.09 sec)
+
+7.
+SELECT namapelanggan, count(reservasi.idfilm) as jml_film
+FROM film
+NATURAL JOIN penayangan
+NATURAL JOIN reservasi
+NATURAL JOIN pelanggan
+GROUP BY namapelanggan
+WHERE reservasi.idfilm EXISTS (
+	SELECT idfilm
+	FROM film
+	HAVING durasi < 90);
+
+SELECT namafilm, durasi
+FROM film
+HAVING durasi < 90;
+
+
+8. CREATE VIEW summary_studio AS
+SELECT namastudio, count(idkursi) as banyakkursi, (
+CASE WHEN (count(idkursi) MOD 2 = 1) THEN 'Ganjil'
+ELSE 'GENAP'
+END)
+FROM studio
+NATURAL JOIN kursi
+GROUP BY namastudio;
+
+Query OK, 0 rows affected (0.05 sec)
+
+SELECT * FROM summary_studio;
++------------+-------------+------------+
+| namastudio | banyakkursi | Name_exp_3 |
++------------+-------------+------------+
+| Studio 1   |         150 | GENAP      |
+| Studio 10  |         200 | GENAP      |
+| Studio 11  |         180 | GENAP      |
+| Studio 12  |         165 | Ganjil     |
+| Studio 13  |         120 | GENAP      |
+| Studio 14  |         180 | GENAP      |
+| Studio 15  |         200 | GENAP      |
+| Studio 16  |         160 | GENAP      |
+| Studio 17  |         275 | Ganjil     |
+| Studio 18  |         220 | GENAP      |
+| Studio 19  |         110 | GENAP      |
+| Studio 2   |         100 | GENAP      |
+| Studio 20  |         150 | GENAP      |
+| Studio 3   |         180 | GENAP      |
+| Studio 4   |          90 | GENAP      |
+| Studio 5   |         100 | GENAP      |
+| Studio 6   |         150 | GENAP      |
+| Studio 7   |         180 | GENAP      |
+| Studio 8   |         135 | Ganjil     |
+| Studio 9   |         110 | GENAP      |
++------------+-------------+------------+
+20 rows in set (0.00 sec)
+
+9.
+CREATE VIEW genre_rating AS
+SELECT genre, AVG(imdbrating) as avg_rating
+FROM film
+NATURAL JOIN film_has_genre
+GROUP BY genre;
+
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> SELECT * FROM genre_rating;
++-----------+------------+
+| genre     | avg_rating |
++-----------+------------+
+| Action    |   6.187500 |
+| Adventure |   6.377273 |
+| Animation |   6.500000 |
+| Biography |   6.766667 |
+| Comedy    |   6.493750 |
+| Crime     |   6.952778 |
+| Drama     |   6.985135 |
+| Family    |   6.107692 |
+| Fantasy   |   6.569231 |
+| Film-Noir |   7.100000 |
+| History   |   7.380000 |
+| Horror    |   6.046154 |
+| Music     |   5.533333 |
+| Musical   |   5.240000 |
+| Mystery   |   6.605556 |
+| Romance   |   6.616000 |
+| Sci-Fi    |   6.192308 |
+| Sport     |   6.420000 |
+| Thriller  |   6.372500 |
+| War       |   7.600000 |
+| Western   |   7.533333 |
++-----------+------------+
+21 rows in set (0.00 sec)
+
+10.
+
+
+11.
+UPDATE pelangganonline
+SET email = "veolalala@std.stei.itb.ac.id"
+WHERE idpelanggan = (
+	SELECT idpelanggan
+	FROM pelanggan
+	WHERE namapelanggan = 'Veola Connerty');
+
+Query OK, 1 row affected (0.07 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+SELECT idpelanggan, namapelanggan, email
+FROM pelangganonline
+NATURAL JOIN pelanggan
+WHERE email = "veolalala@std.stei.itb.ac.id";
+
++-------------+----------------+------------------------------+
+| idpelanggan | namapelanggan  | email                        |
++-------------+----------------+------------------------------+
+|        2711 | Veola Connerty | veolalala@std.stei.itb.ac.id |
++-------------+----------------+------------------------------+
+1 row in set (0.00 sec)
+
+12.
+INSERT INTO reservasi
+VALUES (28,0,'2015-09-30 09:00:00', 'A2', 15000);
+
+SELECT idfilm, idstudio, waktumulai, idkursi, idpelanggan
+From film
+NATURAL JOIN penayangan
+NATURAL JOIN studio
+NATURAL JOIN kursi
+NATURAL JOIN reservasi
+WHERE idfilm = 28;
+
+876 rows in set (0.01 sec)

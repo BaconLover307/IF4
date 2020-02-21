@@ -4,7 +4,8 @@ Nama	: Gregorius Jovan Kresnadi
 NIM	: 13518135
 ------------------------------------------------------------
 
-1. select productName, buyPrice, quantityInStock from products where quantityInStock < 1000 and buyPrice < (select avg(buyPrice) from products);
+1. select productName, buyPrice, quantityInStock
+from products where quantityInStock < 1000 and buyPrice < (select avg(buyPrice) from products);
 +---------------------------------------------+----------+-----------------+
 | productName                                 | buyPrice | quantityInStock |
 +---------------------------------------------+----------+-----------------+
@@ -19,12 +20,15 @@ NIM	: 13518135
 +---------------------------------------------+----------+-----------------+
 8 rows in set (0.00 sec)
 
-2. select concat(employees.firstName, " ", employees.lastName) as fullName, customers.customerName from employees inner join customers on employees
+2. select concat(employees.firstName, " ", employees.lastName) as fullName, customers.customerName
+from employees left join customers on employeeNumber = salesRepNumber;
 
 100 rows in set (0.00 sec)
 
 
-3. select distinct products.productline from products natural join orders, orderdetails, customers, employees, offices where offices.city = "Boston" and offices.officeCode = employees.officeCode and employees.employeeNumber = customers.salesRepEmployeeNumber and customers.customerNumber = orders.customerNumber and orders.orderNumber = orderdetails.ordernumber and products.productCode = orderdetails.productCode;
+3. select distinct products.productline
+from products natural join orders, orderdetails, customers, employees, offices
+where offices.city = "Boston" and offices.officeCode = employees.officeCode and employees.employeeNumber = customers.salesRepEmployeeNumber and customers.customerNumber = orders.customerNumber and orders.orderNumber = orderdetails.ordernumber and products.productCode = orderdetails.productCode;
 
 +------------------+
 | productline      |
@@ -39,7 +43,28 @@ NIM	: 13518135
 +------------------+
 7 rows in set (0.00 sec)
 
-4. create view cust_avg_with_car as select customerName as cust_name, avg(amount) as avg_transaction from customers natural join payments, orders, orderdetails, products where products.productLine = "Classic Cars" and  customers.customerNumber = payments.customerNumber and orders.customerNumber = customers.customerNumber and orders.orderNumber = orderdetails.ordernumber and products.productCode = orderdetails.productCode group by cust_name;
+4. create view cust_avg_with_car as select customerName as cust_name, avg(amount) as avg_transaction
+from customers natural join payments, orders, orderdetails, products
+where products.productLine = "Classic Cars" and  customers.customerNumber = payments.customerNumber and orders.customerNumber = customers.customerNumber
+and orders.orderNumber = orderdetails.ordernumber and products.productCode = orderdetails.productCode group by cust_name;
+
+-->
+CREATE VIEW cust_avg_with_car
+AS (
+SELECT customerName, AVG(amount)
+FROM (
+	order
+	NATURAL JOIN customers
+	NATURAL JOIN orderdetails
+	NATURAL JOIN products
+	NATURAL JOIN payments
+) 
+WHERE customerNumber IN (
+	SELECT customerNumber
+	FROM (
+		orders
+		NATURAL JOIN customers
+		NATURAL JOIN orderdetails
 
 Query OK, 0 rows affected (0.04 sec)
 
@@ -48,6 +73,15 @@ Query OK, 0 rows affected (0.04 sec)
 Query OK, 0 rows affected (0.02 sec)
 
 6. select orders.orderNumber, orderdetails.quantityOrdered, products.quantityInStock from orders natural join orderdetails, products where orderdetails.quantityOrdered > products.quantityInStock;
+
+-->
+DELETE FROM orders
+WHERE orderNumber in (
+	SELECT orderNumber
+	FROM orderdetails NATURAL JOIN products
+	WHERE quantityOrdered > quantityInStock
+);
+
 
 
 7. 
@@ -64,7 +98,44 @@ update products set quantityInStock = quantityInStock + 1000 where quantityInSto
 Query OK, 12 rows affected (0.05 sec)
 Rows matched: 12  Changed: 12  Warnings: 0
 
+-> update products set quantityInStock = (
+CASE
+	WHEN quantityInStock >= 1000 THEN (quantityInStock + 250)
+	ELSE quantityInStock + 1000
+END
+);
+
+
 11. update orders set status = "Shippped" where
+
+-->
+UPDATE orders
+SET status="Shipped"
+WHERE customerNumber IN (
+	SELECT customerNumber
+	FROM customers NATURAL JOIN employees
+	WHERE employees.lastname = "Hernandez"
+) AND status="In Process";
 
 12. update 
 
+-->
+CREATE TABLE members (
+	id_member INT,
+	customerInitial VARCHAR(46),
+	customerNumber INT,
+	date DATE,
+	PRIMARY KEY (id_member),
+	FOREIGN KEY (customerNumber) REFERENCES customers(customerNumber)
+);
+
+==================================================
+delete from employees where firstname in (select firstname from employees where city = 'Tokyo');
+select * from employees where firstname in (select firstname from employees natural join offices where city = 'Tokyo');
+
+
+select concat(firstname, ' ', lastname) as fullname, city from employees natural join offices where city = "Tokyo";
+
+SELECT A.supervisor
+FROM emp-super A, emp-super B
+WHERE A.person = B.supervisor AND B.person = "Bob";

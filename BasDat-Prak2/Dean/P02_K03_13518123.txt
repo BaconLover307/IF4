@@ -1,0 +1,469 @@
+IF2240 PRAKTIKUM-1
+Tanggal	: 14 Februari 2020
+Nama	: Naufal Dean Anugrah
+NIM	: 13518123
+------------------------------------------------------------
+
+
+1. 
+SELECT productName, buyPrice, quantityInStock
+FROM products
+WHERE quantityInStock < 1000
+AND buyPrice < (
+	SELECT AVG(buyPrice)
+	FROM products
+);
+
++---------------------------------------------+----------+-----------------+
+| productName                                 | buyPrice | quantityInStock |
++---------------------------------------------+----------+-----------------+
+| 1911 Ford Town Car                          |    33.30 |             540 |
+| P-51-D Mustang                              |    49.00 |             992 |
+| 1960 BSA Gold Star DBD34                    |    37.32 |              15 |
+| 1996 Peterbilt 379 Stake Bed with Outrigger |    33.61 |             814 |
+| 1928 Ford Phaeton Deluxe                    |    33.02 |             136 |
+| 2002 Yamaha YZR M1                          |    34.17 |             600 |
+| The Mayflower                               |    43.30 |             737 |
+| Pont Yacht                                  |    33.30 |             414 |
++---------------------------------------------+----------+-----------------+
+8 rows in set (0.00 sec)
+
+
+2.
+SELECT CONCAT(firstName, " ", lastName) AS fullName, customerName
+FROM employees
+LEFT JOIN customers
+ON employeeNumber=salesRepEmployeeNumber;
+
++-------------------+------------------------------------+
+| fullName          | customerName                       |
++-------------------+------------------------------------+
+| Diane Murphy      | NULL                               |
+| Mary Patterson    | NULL                               |
+| Jeff Firrelli     | NULL                               |
+| William Patterson | NULL                               |
+| Gerard Bondur     | NULL                               |
+| Anthony Bow       | NULL                               |
+| Leslie Jennings   | Mini Gifts Distributors Ltd.       |
+| Leslie Jennings   | Mini Wheels Co.                    |
+| Leslie Jennings   | Technics Stores Inc.               |
+| Leslie Jennings   | Corporate Gift Ideas Co.           |
+| Leslie Jennings   | The Sharp Gifts Warehouse          |
+| Leslie Jennings   | Signal Collectibles Ltd.           |
+| Leslie Thompson   | Signal Gift Stores                 |
+| Leslie Thompson   | Toys4GrownUps.com                  |
+| Leslie Thompson   | Boards & Toys Co.                  |
+| Leslie Thompson   | Collectable Mini Designs Co.       |
+| Leslie Thompson   | Men 'R' US Retailers, Ltd.         |
+| Leslie Thompson   | West Coast Collectables Co.        |
+| Julie Firrelli    | Cambridge Collectables Co.         |
+| Julie Firrelli    | Online Mini Collectables           |
+| Julie Firrelli    | Mini Creations Ltd.                |
+| Julie Firrelli    | Classic Gift Ideas, Inc            |
+| Julie Firrelli    | Collectables For Less Inc.         |
+| Julie Firrelli    | Diecast Collectables               |
+| Steve Patterson   | Diecast Classics Inc.              |
+| Steve Patterson   | Auto-Moto Classics Inc.            |
+| Steve Patterson   | Marta's Replicas Co.               |
+| Steve Patterson   | Gifts4AllAges.com                  |
+| Steve Patterson   | Online Diecast Creations Co.       |
+| Steve Patterson   | FunGiftIdeas.com                   |
+| Foon Yue Tseng    | Muscle Machine Inc                 |
+| Foon Yue Tseng    | American Souvenirs Inc             |
+| Foon Yue Tseng    | Vitachrome Inc.                    |
+| Foon Yue Tseng    | Québec Home Shopping Network       |
+| Foon Yue Tseng    | Classic Legends Inc.               |
+| Foon Yue Tseng    | Super Scale Inc.                   |
+| Foon Yue Tseng    | Microscale Inc.                    |
+| George Vanauf     | Land of Toys Inc.                  |
+| George Vanauf     | Gift Depot Inc.                    |
+| George Vanauf     | Canadian Gift Exchange Network     |
+| George Vanauf     | Royal Canadian Collectables, Ltd.  |
+| George Vanauf     | Mini Classics                      |
+| George Vanauf     | Tekni Collectables Inc.            |
+| George Vanauf     | Gift Ideas Corp.                   |
+| George Vanauf     | Motor Mint Distributors Inc.       |
+| Loui Bondur       | Saveley & Henriot, Co.             |
+| Loui Bondur       | La Corne D'abondance, Co.          |
+| Loui Bondur       | Lyon Souveniers                    |
+| Loui Bondur       | Marseille Mini Autos               |
+| Loui Bondur       | Reims Collectables                 |
+| Loui Bondur       | Auto Canal+ Petit                  |
+| Gerard Hernandez  | Atelier graphique                  |
+| Gerard Hernandez  | La Rochelle Gifts                  |
+| Gerard Hernandez  | Euro+ Shopping Channel             |
+| Gerard Hernandez  | Daedalus Designs Imports           |
+| Gerard Hernandez  | Mini Caravy                        |
+| Gerard Hernandez  | Alpha Cognac                       |
+| Gerard Hernandez  | Auto Associés & Cie.               |
+| Pamela Castillo   | Danish Wholesale Imports           |
+| Pamela Castillo   | Heintze Collectables               |
+| Pamela Castillo   | Amica Models & Co.                 |
+| Pamela Castillo   | Rovelli Gifts                      |
+| Pamela Castillo   | Petit Auto                         |
+| Pamela Castillo   | Royale Belge                       |
+| Pamela Castillo   | Salzburg Collectables              |
+| Pamela Castillo   | L'ordine Souveniers                |
+| Pamela Castillo   | Mini Auto Werke                    |
+| Pamela Castillo   | Frau da Collezione                 |
+| Larry Bott        | Toys of Finland, Co.               |
+| Larry Bott        | AV Stores, Co.                     |
+| Larry Bott        | UK Collectables, Ltd.              |
+| Larry Bott        | giftsbymail.co.uk                  |
+| Larry Bott        | Oulu Toy Supplies, Inc.            |
+| Larry Bott        | Stylish Desk Decors, Co.           |
+| Larry Bott        | Suominen Souveniers                |
+| Larry Bott        | Double Decker Gift Stores, Ltd     |
+| Barry Jones       | Baane Mini Imports                 |
+| Barry Jones       | Blauer See Auto, Co.               |
+| Barry Jones       | Volvo Model Replicas, Co           |
+| Barry Jones       | Herkku Gifts                       |
+| Barry Jones       | Clover Collections, Co.            |
+| Barry Jones       | Toms Spezialitäten, Ltd            |
+| Barry Jones       | Norway Gifts By Mail, Co.          |
+| Barry Jones       | Bavarian Collectables Imports, Co. |
+| Barry Jones       | Scandinavian Gift Ideas            |
+| Andy Fixter       | Australian Collectors, Co.         |
+| Andy Fixter       | Anna's Decorations, Ltd            |
+| Andy Fixter       | Souveniers And Things Co.          |
+| Andy Fixter       | Australian Gift Network, Co        |
+| Andy Fixter       | Australian Collectables, Ltd       |
+| Peter Marsh       | Handji Gifts& Co                   |
+| Peter Marsh       | Down Under Souveniers, Inc         |
+| Peter Marsh       | GiftsForHim.com                    |
+| Peter Marsh       | Extreme Desk Decorations, Ltd      |
+| Peter Marsh       | Kelly's Gift Shop                  |
+| Tom King          | NULL                               |
+| Mami Nishi        | Dragon Souveniers, Ltd.            |
+| Mami Nishi        | Osaka Souveniers Co.               |
+| Mami Nishi        | King Kong Collectables, Co.        |
+| Mami Nishi        | Cruz & Sons Co.                    |
+| Mami Nishi        | Tokyo Collectables, Ltd            |
+| Yoshimi Kato      | NULL                               |
+| Martin Gerard     | Enaco Distributors                 |
+| Martin Gerard     | Vida Sport, Ltd                    |
+| Martin Gerard     | CAF Imports                        |
+| Martin Gerard     | Precious Collectables              |
+| Martin Gerard     | Corrida Auto Replicas, Ltd         |
+| Martin Gerard     | Iberia Gift Imports, Corp.         |
++-------------------+------------------------------------+
+108 rows in set (0.00 sec)
+
+
+3.
+SELECT DISTINCT productLine
+FROM (
+	employees 
+	NATURAL JOIN customers
+	NATURAL JOIN orders
+	NATURAL JOIN orderdetails		
+	NATURAL JOIN products
+)
+WHERE officeCode=(
+	SELECT officeCode
+	FROM offices
+	WHERE city="Boston"
+);
+
++------------------+
+| productLine      |
++------------------+
+| Classic Cars     |
+| Motorcycles      |
+| Vintage Cars     |
+| Planes           |
+| Trucks and Buses |
+| Ships            |
+| Trains           |
++------------------+
+7 rows in set (0.01 sec)
+
+
+4.
+CREATE VIEW cust_avg_with_car(cust_name, avg_transaction) AS (
+SELECT customerName, AVG(amount)
+FROM (
+	orders 
+	NATURAL JOIN customers
+	NATURAL JOIN orderdetails
+	NATURAL JOIN products
+	NATURAL JOIN payments
+)
+WHERE customerNumber IN (
+	SELECT customerNumber
+	FROM (
+		orders 
+		NATURAL JOIN customers
+		NATURAL JOIN orderdetails
+		NATURAL JOIN products
+	)
+	WHERE productLine="Classic Cars"
+)
+GROUP BY customerName
+);
+
++-----------------------------------+--------------+
+| customerName                      | AVG(amount)  |
++-----------------------------------+--------------+
+| Alpha Cognac                      | 20161.120000 |
+| Amica Models & Co.                | 41111.615000 |
+| Anna's Decorations, Ltd           | 34258.555000 |
+| Atelier graphique                 |  7438.120000 |
+| Australian Collectables, Ltd      | 22460.380000 |
+| Australian Collectors, Co.        | 45146.267500 |
+| Australian Gift Network, Co       | 18396.720000 |
+| Auto Associés & Cie.              | 29438.205000 |
+| Auto Canal+ Petit                 | 28812.323333 |
+| AV Stores, Co.                    | 49470.030000 |
+| Baane Mini Imports                | 26056.197500 |
+| Blauer See Auto, Co.              | 18984.440000 |
+| Boards & Toys Co.                 |  3959.300000 |
+| CAF Imports                       | 23375.570000 |
+| Cambridge Collectables Co.        | 16099.345000 |
+| Canadian Gift Exchange Network    | 35061.095000 |
+| Classic Gift Ideas, Inc           | 28969.670000 |
+| Classic Legends Inc.              | 23071.443333 |
+| Clover Collections, Co.           | 24949.135000 |
+| Collectable Mini Designs Co.      | 80375.240000 |
+| Collectables For Less Inc.        | 24511.216667 |
+| Corporate Gift Ideas Co.          | 66170.390000 |
+| Corrida Auto Replicas, Ltd        | 37480.030000 |
+| Cruz & Sons Co.                   | 29156.100000 |
+| Daedalus Designs Imports          | 30890.850000 |
+| Danish Wholesale Imports          | 26861.625000 |
+| Diecast Classics Inc.             | 49254.625000 |
+| Diecast Collectables              | 32770.870000 |
+| Double Decker Gift Stores, Ltd    | 14793.075000 |
+| Down Under Souveniers, Inc        | 38655.520000 |
+| Dragon Souveniers, Ltd.           | 39062.757500 |
+| Enaco Distributors                | 22840.156667 |
+| Euro+ Shopping Channel            | 55056.844615 |
+| Extreme Desk Decorations, Ltd     | 33352.470000 |
+| Frau da Collezione                | 12679.160000 |
+| FunGiftIdeas.com                  | 29542.496667 |
+| Gift Depot Inc.                   | 31808.210000 |
+| Gift Ideas Corp.                  | 16655.926667 |
+| Gifts4AllAges.com                 | 16766.735000 |
+| giftsbymail.co.uk                 | 35891.875000 |
+| GiftsForHim.com                   | 28331.190000 |
+| Handji Gifts& Co                  | 35140.190000 |
+| Heintze Collectables              | 44954.900000 |
+| Herkku Gifts                      | 48781.235000 |
+| Iberia Gift Imports, Corp.        | 25493.925000 |
+| Kelly's Gift Shop                 | 38165.730000 |
+| L'ordine Souveniers               | 45071.655000 |
+| La Corne D'abondance, Co.         | 28851.173333 |
+| La Rochelle Gifts                 | 38983.226667 |
+| Land of Toys Inc.                 | 35879.980000 |
+| Lyon Souveniers                   | 22553.063333 |
+| Marseille Mini Autos              | 23849.176667 |
+| Marta's Replicas Co.              | 45272.685000 |
+| Men 'R' US Retailers, Ltd.        | 20753.095000 |
+| Microscale Inc.                   | 14615.215000 |
+| Mini Auto Werke                   | 17019.996667 |
+| Mini Caravy                       | 25286.440000 |
+| Mini Classics                     | 39216.080000 |
+| Mini Creations Ltd.               | 33957.506667 |
+| Mini Gifts Distributors Ltd.      | 64909.804444 |
+| Mini Wheels Co.                   | 22236.853333 |
+| Motor Mint Distributors Inc.      | 25908.863333 |
+| Muscle Machine Inc                | 44478.487500 |
+| Norway Gifts By Mail, Co.         | 34529.520000 |
+| Online Diecast Creations Co.      | 38816.430000 |
+| Online Mini Collectables          | 27788.630000 |
+| Osaka Souveniers Co.              | 31180.610000 |
+| Oulu Toy Supplies, Inc.           | 31902.050000 |
+| Petit Auto                        | 31126.925000 |
+| Québec Home Shopping Network      | 22992.556667 |
+| Reims Collectables                | 31745.797500 |
+| Rovelli Gifts                     | 42509.896667 |
+| Royal Canadian Collectables, Ltd. | 33406.000000 |
+| Royale Belge                      |  7304.295000 |
+| Salzburg Collectables             | 28353.333333 |
+| Saveley & Henriot, Co.            | 43435.116667 |
+| Scandinavian Gift Ideas           | 38388.220000 |
+| Signal Collectibles Ltd.          | 21285.185000 |
+| Signal Gift Stores                | 26726.993333 |
+| Souveniers And Things Co.         | 30551.870000 |
+| Stylish Desk Decors, Co.          | 26852.243333 |
+| Suominen Souveniers               | 34632.246667 |
+| Super Scale Inc.                  | 35189.325000 |
+| Technics Stores Inc.              | 26136.305000 |
+| The Sharp Gifts Warehouse         | 59551.380000 |
+| Tokyo Collectables, Ltd           | 26387.182500 |
+| Toms Spezialitäten, Ltd           | 44611.570000 |
+| Toys of Finland, Co.              | 31848.820000 |
+| Toys4GrownUps.com                 | 31267.766667 |
+| UK Collectables, Ltd.             | 30583.590000 |
+| Vida Sport, Ltd                   | 54388.960000 |
+| Vitachrome Inc.                   | 24165.880000 |
+| Volvo Model Replicas, Co          | 21840.325000 |
+| West Coast Collectables Co.       | 21874.360000 |
++-----------------------------------+--------------+
+94 rows in set (0.02 sec)
+
+
+5.
+CREATE VIEW not_tokyo_employee_cust(cust_count, emp_name) AS (
+SELECT COUNT(customerNumber) AS cnt, CONCAT(firstName, " ", lastName)
+FROM (
+	employees NATURAL JOIN customers
+)
+WHERE officeCode<>(
+	SELECT officeCode
+	FROM offices
+	WHERE city="Tokyo"
+)
+GROUP BY firstName, lastName
+);
+
++-----+----------------------------------+
+| cnt | CONCAT(firstName, " ", lastName) |
++-----+----------------------------------+
+| 122 | Andy Fixter                      |
+| 122 | Anthony Bow                      |
+| 122 | Barry Jones                      |
+| 122 | Diane Murphy                     |
+| 122 | Foon Yue Tseng                   |
+| 122 | George Vanauf                    |
+| 122 | Gerard Bondur                    |
+| 122 | Gerard Hernandez                 |
+| 122 | Jeff Firrelli                    |
+| 122 | Julie Firrelli                   |
+| 122 | Larry Bott                       |
+| 122 | Leslie Jennings                  |
+| 122 | Leslie Thompson                  |
+| 122 | Loui Bondur                      |
+| 122 | Martin Gerard                    |
+| 122 | Mary Patterson                   |
+| 122 | Pamela Castillo                  |
+| 122 | Peter Marsh                      |
+| 122 | Steve Patterson                  |
+| 122 | Tom King                         |
+| 122 | William Patterson                |
++-----+----------------------------------+
+21 rows in set (0.00 sec)
+
+
+6.
+DELETE FROM orders
+WHERE orderNumber IN (
+	SELECT orderNumber
+	FROM orderdetails NATURAL JOIN products
+	WHERE quantityOrdered > quantityInStock
+);
+
+ERROR 1451 (23000): Cannot delete or update a parent row: a foreign key constraint fails (`Praktikum2`.`orderdetails`, CONSTRAINT `orderdetails_ibfk_1` FOREIGN KEY (`orderNumber`) REFERENCES `orders` (`orderNumber`))
+
+
+7.
+
+
+
+8.
+INSERT INTO offices
+VALUES (
+	"8",
+	"Bandung",
+	"+62-22-5500935",
+	"Jl. Tamansari 64",
+	NULL,	
+	"Jawa Barat",
+	"Indonesia",
+	"40116",
+	"SEA"
+);
+
+Query OK, 1 row affected (0.03 sec)
+
+
+9.
+INSERT INTO employees
+VALUES (
+	9999,
+	"Anugrah",
+	"Naufal Dean",
+	"x1402",
+	"naufal.dean@gmail.com",
+	"8",
+	NULL,
+	"Sales Manager"
+);
+INSERT INTO employees
+VALUES (
+	8888,
+	"William",
+	"William",
+	"x1403",
+	"william@gmail.com",
+	"8",
+	9999,
+	"Sales Rep"
+);
+INSERT INTO employees
+VALUES (
+	7777,
+	"Camcam",
+	"Camcam",
+	"x1404",
+	"camcam@gmail.com",
+	"8",
+	9999,
+	"Sales Rep"
+);
+
+Query OK, 1 row affected (0.03 sec)
+Query OK, 1 row affected (0.04 sec)
+Query OK, 1 row affected (0.03 sec)
+
+
+10.
+UPDATE products
+SET quantityInStock=(
+CASE 
+	WHEN quantityInStock<1000 THEN (quantityInStock + 1000)
+	ELSE (quantityInStock + 250)
+END
+);
+
+Query OK, 110 rows affected (0.04 sec)
+Rows matched: 110  Changed: 110  Warnings: 0
+
+
+11.
+UPDATE orders
+SET status="Shipped"
+WHERE customerNumber IN (
+	SELECT customerNumber
+	FROM customers NATURAL JOIN employees
+	WHERE lastName="Hernandez"
+) AND status="In Process";
+
+Query OK, 6 rows affected (0.04 sec)
+Rows matched: 6  Changed: 6  Warnings: 0
+
+
+SELECT COUNT(orderNumber)
+FROM orders NATURAL JOIN customers NATURAL JOIN employees
+WHERE lastName="Hernandez"
+AND status="Shipped";
+
++--------------------+
+| COUNT(orderNumber) |
++--------------------+
+|                309 |
++--------------------+
+1 row in set (0.00 sec)
+
+
+12.
+CREATE TABLE members (
+	id_member INT,
+	customerInitial VARCHAR(40),
+	customerNumber INT,
+	date DATE,
+	PRIMARY KEY (id_member),
+	FOREIGN KEY (customerNumber) REFERENCES customers(customerNumber)
+);
+
+Query OK, 0 rows affected (0.27 sec)
