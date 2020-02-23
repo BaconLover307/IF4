@@ -1,37 +1,36 @@
 /* Nama         : Gregorius Jovan Kresnadi */
 /* NIM          : 13518135 */
 /* Program      : PolinomDNC.hpp */
-/* Deskripsi    : Header Perkalian polinom metode Decrease and Conquer */
+/* Deskripsi    : Header Perkalian polinom metode Divide and Conquer */
 /* Keterangan   : Tugas Besar StiMa 2: Pustaka Polinom dengan metode
-                  Brute Force dan Decrease and Conquer */
-#ifndef POLINOMBF_HPP
-#define POLINOMBF_HPP
+                  Brute Force dan Divide and Conquer */
 
-class Polinom {
+#ifndef POLINOMDNC_HPP
+#define POLINOMDNC_HPP
+
+#define RANGE 50
+#include <vector>
+
+class PolinomDnC {
 public:
-  // ctor, cctor, dtor, op=
-  // untuk konstruktor, inisialisasi seluruh nilai koefisien dengan 0.
-  Polinom();    // ctor Polinom dengan orde = 0
-  Polinom(int); // ctor Polinom dengan orde = n (sesuai parameter)
-  Polinom(const Polinom&);
-  ~Polinom();
-  Polinom& operator=(const Polinom&);
+  // Vars
+  std::vector<int> P;
+  int degree; //derajat tertinggi
+  
+  // ctor, cctor, dtor
+  PolinomDnC();    // ctor Polinom dengan orde = 0
+  PolinomDnC(int); // ctor Polinom dengan orde = n (sesuai parameter)
+  PolinomDnC& operator=(const PolinomDnC&);
+  ~PolinomDnC();
 
-  // getter, setter
-  int getKoefAt(int idx) const;
-  int getDerajat() const;
-  void setKoefAt(int idx, int val);
-  void setDerajat(int);
+  // Mengisi polinom dengan angka sembarang
+  void FillPolinomDnC();
+  void FillPolinomDnC(int);
 
-  friend Polinom operator*(const Polinom&, const Polinom&); // Perkalian Polinom dengan konstanta (sifat komutatif)
+  void Mundur(int n);
 
-  // member function
-  // Melakukan pembacaan koefisien sejumlah derajat Polinom, dimulai dari x^0 (konstanta)
-  void input();
-
-  // Mencetak seluruh koefisien polinom. Untuk setiap koefisien akhiri dengan end-of-line
-  // Cetaklah apa adanya dari koefisien ke-0 hingga derajat tertinggi (termasuk apabila koefisien = 0)
-  void printKoef();
+  friend PolinomDnC operator+(const PolinomDnC&, const PolinomDnC&); // Perkalian Polinom dengan konstanta (sifat komutatif)
+  friend PolinomDnC operator-(const PolinomDnC&, const PolinomDnC&); // Perkalian Polinom dengan konstanta (sifat komutatif)
 
   // Mencetak polinom dengan format: A+Bx^1+Cx^2+Dx^3...dst (diakhiri dengan end-of-line)
   // Apabila suatu koefisien bernilai < 0, gunakan tanda "-" untuk menggantikan tanda "+"
@@ -40,9 +39,8 @@ public:
   void print();
 
 private:
-  const static int MAX_LENGTH = 10000;
-  int koef[MAX_LENGTH];
-  int degree; // derajat tertinggi
 };
+
+PolinomDnC Kali(const PolinomDnC& P1, const PolinomDnC& P2, int &countPlus, int &countKali );
 
 #endif

@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "chrono": "cpp",
+        "ostream": "cpp",
+        "*.tcc": "cpp",
+        "type_traits": "cpp",
+        "algorithm": "cpp",
+        "thread": "cpp",
+        "ratio": "cpp",
+        "iostream": "cpp",
+        "cmath": "cpp"
+    }
+}

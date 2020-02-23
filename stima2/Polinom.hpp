@@ -3,7 +3,7 @@
 /* Program      : Polinom.cpp */
 /* Deskripsi    : Implementasi Polinom */
 /* Keterangan   : Tugas Besar StiMa 2: Pustaka Polinom dengan metode
-                  Brute Force dan Decrease and Conquer */
+                  Brute Force dan Divide and Conquer */
 
 #ifndef POLINOM_HPP
 #define POLINOM_HPP

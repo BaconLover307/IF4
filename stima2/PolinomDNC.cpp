@@ -1,158 +1,138 @@
 /* Nama         : Gregorius Jovan Kresnadi */
 /* NIM          : 13518135 */
 /* Program      : PolinomDNC.cpp */
-/* Deskripsi    : Implementasi Perkalian polinom metode Decrease and Conquer */
+/* Deskripsi    : Implementasi Perkalian polinom metode Divide and Conquer */
 /* Keterangan   : Tugas Besar StiMa 2: Pustaka Polinom dengan metode
-                  Brute Force dan Decrease and Conquer */
+                  Brute Force dan Divide and Conquer */
 
-#include "Polinom.hpp"
+#include "PolinomDNC.hpp"
 #include <iostream>
+#include <vector>
+#include <ctime>
+#include "math.h"
 
 using namespace std;
 
-Polinom::Polinom() {
-    this -> derajat = 0;
-    for (int i = 0; i < MAX_LENGTH; i++) {
-        this -> koef[i] = 0;
-    }
+// ctor, dtor
+PolinomDnC::PolinomDnC(int degree) {
+    this->degree = degree;
+    P.reserve(degree+1);
 }
 
-Polinom::Polinom(int derajat) {
-    this -> derajat = derajat;
-    for (int i = 0; i < MAX_LENGTH; i++) {
-        this -> koef[i] = 0;
-    }
-}
+PolinomDnC::PolinomDnC() : PolinomDnC(1) {}
 
-Polinom::Polinom(const Polinom& other) {
-    this -> derajat = other.derajat;
-    for (int i = 0; i < MAX_LENGTH; i++) {
-        this -> koef[i] = other.koef[i];
-    }
-}
-
-Polinom::~Polinom() {
-    // tidak ada new, maka kosong
-}
-
-Polinom& Polinom::operator=(const Polinom& P) {
-    derajat = P.derajat;
-    for (int i=0; i<MAX_LENGTH; i++) {
-        koef[i] = P.koef[i];
+PolinomDnC& PolinomDnC::operator=(const PolinomDnC& Pol) {
+    degree = Pol.degree;
+    for (int i=0; i<Pol.P.size(); i++) {
+        P.push_back(Pol.P[i]);
     }
     return *this;
 }
 
-int Polinom::getKoefAt(int idx) const {
-    return koef[idx];
-}
-int Polinom::getDerajat() const {
-    return derajat;
-}
-void Polinom::setKoefAt(int idx, int val) {
-    koef[idx] = val;
-}
-void Polinom::setDerajat(int idx) {
-    derajat = idx;
-}
+PolinomDnC::~PolinomDnC() {}
 
-Polinom operator+(const Polinom & P1, const Polinom & P2) {
-    Polinom Ph;
-    if (P1.getDerajat() > P2.getDerajat()) {
-        Ph.setDerajat(P1.getDerajat());
-    } else {
-        Ph.setDerajat(P2.getDerajat());
+// rand generator
+void PolinomDnC::FillPolinomDnC() {
+    srand(time(NULL));
+    for (int i = 0; i < degree; i++) {
+        P.push_back(rand() % RANGE);
+        
     }
-    for (int i = 0; i < Ph.getDerajat(); i++) {
-        Ph.koef[i] = P1.koef[i] + P2.koef[i];
-    }
-    return Ph;
 }
-Polinom operator-(const Polinom & P1, const Polinom & P2) {
-    Polinom Ph;
-    if (P1.getDerajat() > P2.getDerajat()) {
-        Ph.setDerajat(P1.getDerajat());
-    } else {
-        Ph.setDerajat(P2.getDerajat());
-    }
-    for (int i = 0; i < Ph.getDerajat(); i++) {
-        Ph.koef[i] = P1.koef[i] - P2.koef[i];
-    }
-    return Ph;
-}
-Polinom operator*(const Polinom & P, const int n) {
-    Polinom Ph;
-    Ph.setDerajat(P.getDerajat());
-    for (int i = 0; i < Ph.getDerajat(); i++) {
-        Ph.koef[i] = P.koef[i] * n;
-    }
-    return Ph;
-}
-Polinom operator*(const int n, const Polinom & P) {
-    Polinom Ph;
-    Ph.setDerajat(P.getDerajat());
-    for (int i = 0; i < Ph.getDerajat(); i++) {
-        Ph.koef[i] = n * P.koef[i];
-    }
-    return Ph;
-}
-Polinom operator/(const Polinom & P, const int n) {
-    Polinom Ph;
-    Ph.setDerajat(P.getDerajat());
-    for (int i = 0; i < Ph.getDerajat(); i++) {
-        Ph.koef[i] = P.koef[i] / n;
-    }
-    return Ph;
-}
-
-void Polinom::input() {
-    for (int i = 0; i<derajat; i++) {
-        cin >> koef[i];
+void PolinomDnC::FillPolinomDnC(int SEED) {
+    srand(SEED);
+    for (int i = 0; i < degree; i++) {
+        P.push_back(rand() % RANGE);
     }
 }
 
-void Polinom::printKoef() {
-    for (int i = 0; i<derajat; i++) {
-        cout << koef[i] << endl;
-    }
-}
-
-int Polinom::substitute(int x) {
-    int ret = 0, p = 1;
-    for (int i = 0; i<derajat; i++) {
-        ret += p * koef[i];
-        p *= x;
-    }
-    return ret;
-}
-
-// Melakukan aksi derivasi terhadap Polinom.
-// Lakukan pengurangan pada derajat tertinggi Polinom.
-// Apabila derajat tertinggi = 0, hasil derivasi = 0 (dengan derajat tertinggi = 0)
-Polinom Polinom::derive() {
-    if (derajat == 0) {
-        Polinom Ph;
-        return Ph;
-    } else {
-        Polinom Ph(derajat-1);
-        for (int i = 0; i<Ph.derajat; i++) {
-            Ph.koef[i] = koef[i+1] * (i+1);
+PolinomDnC operator+(const PolinomDnC & P1, const PolinomDnC & P2) {
+    PolinomDnC Ph;
+    int i;
+    if (P1.P.size() > P2.P.size()) {
+        for(i = 0; i<P2.P.size(); i++) {
+            Ph.P.push_back(P1.P[i] + P2.P[i]);
         }
-        return Ph;
+        for(i; i<P1.P.size(); i++) {
+            Ph.P.push_back(P1.P[i]);
+        }
+    } else {
+        for(i = 0; i<P1.P.size(); i++) {
+            Ph.P.push_back(P1.P[i] + P2.P[i]);
+        }
+        for(i; i<P2.P.size(); i++) {
+            Ph.P.push_back(P2.P[i]);
+        }
+    }
+    return Ph;
+}
+
+PolinomDnC operator-(const PolinomDnC & P1, const PolinomDnC & P2) {
+    PolinomDnC Ph;
+    int i;
+    if (P1.P.size() > P2.P.size()) {
+        for(i = 0; i<P2.P.size(); i++) {
+            Ph.P.push_back(P1.P[i] - P2.P[i]);
+        }
+        for(i; i<P1.P.size(); i++) {
+            Ph.P.push_back(P1.P[i]);
+        }
+    } else {
+        for(i = 0; i<P1.P.size(); i++) {
+            Ph.P.push_back(P1.P[i] - P2.P[i]);
+        }
+        for(i; i<P2.P.size(); i++) {
+            Ph.P.push_back(P2.P[i]);
+        }
+    }
+    return Ph;
+}
+
+void PolinomDnC::Mundur(int n) {
+    for (int i=0; i < n; i++) {
+        P.insert(P.begin(), 0);
     }
 }
 
-// ** METHOD BONUS (TC 12,13,14) ** (Tidak wajib dikerjakan)
-// Mencetak polinom dengan format: A+Bx^1+Cx^2+Dx^3...dst (diakhiri dengan end-of-line)
-// Apabila suatu koefisien bernilai < 0, gunakan tanda "-" untuk menggantikan tanda "+"
-// Apabila suatu koefisien bernilai 0, lewati koefisien tersebut dan lanjutkan ke koefisien selanjutnya
-// Jika seluruh koefisien bernilai 0, keluarkan "0"
-void Polinom::print() {
-    cout << koef[0];
-    for (int i = 1; i <= derajat; i++) {
-        if (koef[i] < 0) cout << koef[i] << "x^" << i;
-        else if (koef[i] == 0) continue;
-        else cout << "+" << koef[i] << "x^" << i;
+void PolinomDnC::print() {
+    cout << P[0];
+    for (int j= 1; j< P.size(); j++) {
+        if (P[j] < 0) cout << P[j] << "x^" << j;
+        else if (P[j] == 0) continue;
+        else cout << "+" << P[j] << "x^" << j;
     }
-    cout << endl; // kata pak bos biar ganteng
+    cout << endl;
+}
+PolinomDnC Kali(const PolinomDnC& P1, const PolinomDnC& P2, int &countPlus, int &countKali) {
+    if (P1.P.size() == 1) {
+        PolinomDnC Ph(2);
+        Ph.P.push_back(P1.P[0] * P2.P[0]);
+        countKali+=1;
+        return Ph;
+    } else {
+        int half1 = floor(P1.P.size()/2);
+        int half2 = P1.P.size() - half1;
+        PolinomDnC Ph(P1.P.size()*2);
+        PolinomDnC P1A(half1), P1B(half2), P2A(half1), P2B(half2);
+        PolinomDnC PY(half2*2), PU(half1), PZ(half2*2);
+        PolinomDnC PYUZ(half2*2);
+        int i;
+        for (i=0; i<half1; i++) {
+            P1A.P.push_back(P1.P[i]);
+            P2A.P.push_back(P2.P[i]);
+        }
+        for (i; i<P1.P.size(); i++) {
+            P1B.P.push_back(P1.P[i]);
+            P2B.P.push_back(P2.P[i]);
+        }
+        PY = Kali(P1A+P1B, P2A+P2B, countPlus, countKali);
+        PU = Kali(P1A,P2A,countPlus,countKali);
+        PZ = Kali(P1B,P2B,countPlus,countKali);
+        PYUZ = PY - PU - PZ;
+        PYUZ.Mundur(floor(P1.P.size()/2));
+        PZ.Mundur(2*floor(P1.P.size()/2));
+        Ph = PU + PYUZ + PZ;
+        countPlus += 4;
+        return Ph;
+    }
 }
