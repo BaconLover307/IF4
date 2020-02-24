@@ -2,13 +2,12 @@
 /* NIM          : 13518135 */
 /* Program      : PolinomBF.cpp */
 /* Deskripsi    : Implementasi Perkalian polinom metode Brute Force */
-/* Keterangan   : Tugas Besar StiMa 2: Pustaka Polnom dengan metode
+/* Keterangan   : Tugas Besar StiMa 2: Pustaka Polinom dengan metode
                   Brute Force dan Divide and Conquer */
 
 #include "PolinomBF.hpp"
 #include <iostream>
 #include <cstdlib>
-#include "time.h"
 #include <chrono>
 #include <ratio>
 
@@ -27,7 +26,7 @@ PolinomBF::PolinomBF() : PolinomBF(0) {};
 
 PolinomBF::~PolinomBF() {}
 
-// rand generator
+// Mengisi polinom dengan angka sembarang
 void PolinomBF::FillPolinomBF() {
     srand(time(NULL));
     for (int i = 0; i < degree; i++) {
@@ -56,7 +55,7 @@ void PolinomBF::setDegree(int idx) {
     degree = idx;
 }
 
-
+// Operasi penjumlahan
 PolinomBF operator+(const PolinomBF & P1, const PolinomBF & P2) {
     PolinomBF Ph;
     Ph.setDegree(P1.getDegree());
@@ -66,11 +65,12 @@ PolinomBF operator+(const PolinomBF & P1, const PolinomBF & P2) {
     return Ph;
 }
 
+// Operasi perkalian
 PolinomBF operator*(const PolinomBF & P1, const PolinomBF & P2) {
     PolinomBF Ph;
-    int opTambah = 0;
-    int opKali = 0;
-    cout << "\n[] Perkalian Polinom Metode Brute Force [] " << endl << endl;
+    long long int opTambah = 0;
+    long long int opKali = 0;
+    cout << "\n[] Perkalian Polinom Metode Brute Force []\n";
 
     // Perhitungan
     auto start = high_resolution_clock::now();
@@ -85,7 +85,7 @@ PolinomBF operator*(const PolinomBF & P1, const PolinomBF & P2) {
     auto stop = high_resolution_clock::now();
     
     // Results
-    //Ph.print();
+    Ph.print();
     auto dur = duration_cast<microseconds>(stop-start);
     cout << endl << "[] ============--------- - - - -  -  -   -" << endl;
     cout << "|| Jumlah operasi tambah: " << opTambah << endl;
@@ -97,10 +97,7 @@ PolinomBF operator*(const PolinomBF & P1, const PolinomBF & P2) {
     return Ph;
 }
 
-// Mencetak polinom dengan format: A+Bx^1+Cx^2+Dx^3...dst (diakhiri dengan end-of-line)
-// Apabila suatu koefisien bernilai < 0, gunakan tanda "-" untuk menggantikan tanda "+"
-// Apabila suatu koefisien bernilai 0, lewati koefisien tersebut dan lanjutkan ke koefisien selanjutnya
-// Jika seluruh koefisien bernilai 0, keluarkan "0"
+// Mencetak polinom dengan format: A+Bx^1+Cx^2+Dx^3...dst
 void PolinomBF::print() {
     cout << coef[0];
     for (int i = 1; i <= degree; i++) {

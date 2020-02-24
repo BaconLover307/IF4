@@ -31,12 +31,11 @@ PolinomDnC& PolinomDnC::operator=(const PolinomDnC& Pol) {
 
 PolinomDnC::~PolinomDnC() {}
 
-// rand generator
+// Mengisi polinom dengan angka sembarang
 void PolinomDnC::FillPolinomDnC() {
     srand(time(NULL));
     for (int i = 0; i < degree; i++) {
         P.push_back(rand() % RANGE);
-        
     }
 }
 void PolinomDnC::FillPolinomDnC(int SEED) {
@@ -46,6 +45,7 @@ void PolinomDnC::FillPolinomDnC(int SEED) {
     }
 }
 
+// Operasi penjumlahan
 PolinomDnC operator+(const PolinomDnC & P1, const PolinomDnC & P2) {
     PolinomDnC Ph;
     int i;
@@ -67,6 +67,7 @@ PolinomDnC operator+(const PolinomDnC & P1, const PolinomDnC & P2) {
     return Ph;
 }
 
+// Operasi pengurangan
 PolinomDnC operator-(const PolinomDnC & P1, const PolinomDnC & P2) {
     PolinomDnC Ph;
     int i;
@@ -88,12 +89,14 @@ PolinomDnC operator-(const PolinomDnC & P1, const PolinomDnC & P2) {
     return Ph;
 }
 
+// Menaikkan derajat polinom sebanyak n
 void PolinomDnC::Mundur(int n) {
     for (int i=0; i < n; i++) {
         P.insert(P.begin(), 0);
     }
 }
 
+// Mencetak polinom dengan format: A+Bx^1+Cx^2+Dx^3...dst
 void PolinomDnC::print() {
     cout << P[0];
     for (int j= 1; j< P.size(); j++) {
@@ -103,7 +106,9 @@ void PolinomDnC::print() {
     }
     cout << endl;
 }
-PolinomDnC Kali(const PolinomDnC& P1, const PolinomDnC& P2, int &countPlus, int &countKali) {
+
+// Fungsi perkalian 2 polinom
+PolinomDnC Kali(const PolinomDnC& P1, const PolinomDnC& P2, long long int &countPlus, long long int &countKali) {
     if (P1.P.size() == 1) {
         PolinomDnC Ph(2);
         Ph.P.push_back(P1.P[0] * P2.P[0]);
@@ -114,8 +119,8 @@ PolinomDnC Kali(const PolinomDnC& P1, const PolinomDnC& P2, int &countPlus, int 
         int half2 = P1.P.size() - half1;
         PolinomDnC Ph(P1.P.size()*2);
         PolinomDnC P1A(half1), P1B(half2), P2A(half1), P2B(half2);
-        PolinomDnC PY(half2*2), PU(half1), PZ(half2*2);
-        PolinomDnC PYUZ(half2*2);
+        PolinomDnC PX(half2*2), PY(half1), PZ(half2*2);
+        PolinomDnC PXYZ(half2*2);
         int i;
         for (i=0; i<half1; i++) {
             P1A.P.push_back(P1.P[i]);
@@ -125,13 +130,13 @@ PolinomDnC Kali(const PolinomDnC& P1, const PolinomDnC& P2, int &countPlus, int 
             P1B.P.push_back(P1.P[i]);
             P2B.P.push_back(P2.P[i]);
         }
-        PY = Kali(P1A+P1B, P2A+P2B, countPlus, countKali);
-        PU = Kali(P1A,P2A,countPlus,countKali);
+        PX = Kali(P1A+P1B, P2A+P2B, countPlus, countKali);
+        PY = Kali(P1A,P2A,countPlus,countKali);
         PZ = Kali(P1B,P2B,countPlus,countKali);
-        PYUZ = PY - PU - PZ;
-        PYUZ.Mundur(floor(P1.P.size()/2));
+        PXYZ = PX - PY - PZ;
+        PXYZ.Mundur(floor(P1.P.size()/2));
         PZ.Mundur(2*floor(P1.P.size()/2));
-        Ph = PU + PYUZ + PZ;
+        Ph = PY + PXYZ + PZ;
         countPlus += 4;
         return Ph;
     }

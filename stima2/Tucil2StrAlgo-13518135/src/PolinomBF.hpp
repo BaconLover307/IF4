@@ -8,7 +8,7 @@
 #ifndef POLINOMBF_HPP
 #define POLINOMBF_HPP
 
-#define RANGE 50
+#define RANGE 100
 
 class PolinomBF {
   public:
@@ -27,13 +27,11 @@ class PolinomBF {
     void setCoefAt(int idx, int val);
     void setDegree(int);
 
-    friend PolinomBF operator+(const PolinomBF&, const PolinomBF&); // Penjumlahan 2 buah Polinom.
-    friend PolinomBF operator*(const PolinomBF&, const PolinomBF&); // Perkalian PolinomBF dengan konstanta (sifat komutatif)
+    // Operator overloading
+    friend PolinomBF operator+(const PolinomBF&, const PolinomBF&);
+    friend PolinomBF operator*(const PolinomBF&, const PolinomBF&);
 
-    // Mencetak polinom dengan format: A+Bx^1+Cx^2+Dx^3...dst (diakhiri dengan end-of-line)
-    // Apabila suatu koefisien bernilai < 0, gunakan tanda "-" untuk menggantikan tanda "+"
-    // Apabila suatu koefisien bernilai 0, lewati koefisien tersebut dan lanjutkan ke koefisien selanjutnya
-    // Jika seluruh koefisien bernilai 0, keluarkan "0"
+    // Mencetak polinom dengan format: A+Bx^1+Cx^2+Dx^3...dst
     void print();
 
   private:
