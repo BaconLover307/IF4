@@ -7,14 +7,9 @@
 #include "Expression.hpp"
 
 class AddExpression : public BinaryExpression {
-protected:
-	TerminalExpression* x;
-	TerminalExpression* y;
-
 public:
-	AddExpression(TerminalExpression* x, TerminalExpression* y);
-	AddExpression(AddExpression* a, TerminalExpression* y);
-    virtual int solve();
+	AddExpression(Expression* x, Expression* y);
+    int solve();
 
 };
 

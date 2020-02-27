@@ -7,13 +7,9 @@
 #include "Expression.hpp"
 
 class SubstractExpression : public BinaryExpression {
-protected:
-	TerminalExpression* x;
-	TerminalExpression* y;
-
 public:
-	SubstractExpression(TerminalExpression* x, TerminalExpression* y);
-    virtual int solve();
+	SubstractExpression(Expression* x,Expression* y);
+	int solve();
 
 };
 

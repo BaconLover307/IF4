@@ -7,11 +7,9 @@
 
 using namespace std;
 
-AddExpression::AddExpression(TerminalExpression* x, TerminalExpression* y) : BinaryExpression(x), BinaryExpression(y) {
-    this->x = x;
-    this->y = y;
+AddExpression::AddExpression(Expression* x, Expression* y) : BinaryExpression(x,y) {
 }
 
-void AddExpression::solve() {
-    return this->x + this->y;
+int AddExpression::solve() {
+    return x->solve() + y->solve();
 }

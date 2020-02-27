@@ -7,11 +7,11 @@
 
 using namespace std;
 
-NegativeExpression::NegativeExpression(TerminalExpression* x) : UnaryExpression(x) {
-    this->x = x;
+NegativeExpression::NegativeExpression(Expression* x) : UnaryExpression(x) {
+    //
 }
 
-void NegativeExpression::solve() {
-	return this->x * -1;
+int NegativeExpression::solve() {
+	return x->solve() * -1;
 
 }

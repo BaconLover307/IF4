@@ -7,11 +7,8 @@
 #include "Expression.hpp"
 
 class NegativeExpression : public UnaryExpression {
-protected:
-	TerminalExpression* x;
-
 public:
-	NegativeExpression(TerminalExpression* x);
+	NegativeExpression(Expression* x);
     virtual int solve();
 
 };
