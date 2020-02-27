@@ -70,7 +70,7 @@ public:
         return false; // vector sama
     }
 
-    friend ostream& operator<<(ostream& os, Vector<T,N> vector) {
+    friend std::ostream& operator<<(ostream& os, Vector vector) {
         os << "<";
         for (int i = 0; i < N; i++) {
 		    os << vector.elements[i];
@@ -82,7 +82,7 @@ public:
         return os;
     }
 
-    friend istream& operator>>(istream& is, Vector<T,N>& vector) {
+    friend std::istream& operator>>(istream& is, Vector& vector) {
         for (int i = 0; i < N; i++) {
         	is >> vector.elements[i];
         }
