@@ -47,13 +47,21 @@ PQElmt PrioQueue::pop() {
 
 PQElmt PrioQueue::operator[](int k) {
   // Implementasikan di sini
-  PQElmt temp;
-  for (int i = 0; i<k-1; i++) {
-    temp = pop()
-  }
-  return temp;
+  PQElmt ret;
+  if (k < neff) ret = queue[k];
+  return ret;
 }
 
 PrioQueue operator+(const PrioQueue& a, const PrioQueue& b) {
   // Implementasikan di sini
+  PrioQueue ret(a.maxEl + b.maxEl);
+  PrioQueue A(a);
+  PrioQueue B(b);
+  while (A.neff > 0) {
+    ret.push(A.pop());
+  }
+  while (B.neff > 0) {
+    ret.push(B.pop());
+  }
+  return ret;
 }

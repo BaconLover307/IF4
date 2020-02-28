@@ -9,24 +9,24 @@
 
 using namespace std;
 
-Ball::Ball() {
-    this -> radius = 1;
+Ball::Ball(int r) {
+	radius = r;
 }
 
-Ball::Ball(int radius) {
-	this -> radius = radius;
-}
+Ball::Ball() : radius(1) {}
+
 Ball::Ball(const Ball& b) {
-	this -> radius = b.radius;
+	radius = b.radius;
 }
-Ball::~Ball() {
 
+Ball::~Ball() {
+	// none
 }
 
 void Ball::bounce() {
 	cout << "bo";
-	for (int i = 0; i < radius; i ++) {
+	for (int i=0;i<radius;i++) {
 		cout << "i";
 	}
-	cout << "ng" << endl;
+	cout << "ng\n";
 }

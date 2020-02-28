@@ -29,20 +29,21 @@ int PQElmt::getPrio() const {
 }
 
 bool PQElmt::operator==(const PQElmt& other) {
-  // Implementasikan di sini
-  return (value == other.value) && (prio == other.prio)
+  return (value == other.value) && (prio == other.value);
 }
 
 bool PQElmt::operator<(const PQElmt& other) {
-  // Implementasikan di sini
-  if (prio < other.prio) return true;
-  else if (prio > other.prio) return false;
-  else return value > other.value;
+  if (prio != other.prio) {
+    return prio < other.prio;
+  } else {
+    return value > other.value; 
+  }
 }
 
 bool PQElmt::operator>(const PQElmt& other) {
-  // Implementasikan di sini
-  if (prio > other.prio) return true;
-  else if (prio < other.prio) return false;
-  else return value < other.value;
+  if (prio != other.prio) {
+    return prio > other.prio;
+  } else {
+    return value < other.value;
+  }
 }

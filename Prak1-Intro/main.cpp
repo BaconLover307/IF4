@@ -10,15 +10,14 @@
 using namespace std;
 
 int main() {
-
-	Box * x = new Box(2);
-	Box y;
-	Box z(1);
-	y = *x;
-	Box a(z);
-	x -> peek();
-	z.peek();
-	delete x;
+	Box * a = new Box(2);
+	Box b;
+	Box c(1);
+	b = *a;
+	Box d(c);
+	a->peek();
+	c.peek();
+	delete a;
 
 	return 0;
 }
