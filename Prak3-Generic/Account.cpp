@@ -31,11 +31,11 @@ int Account::getBalance() const {
 
 void Account::withdraw(int amount) {
     if (amount <= 0) {
-        InvalidNumberException ea(amount);
-        throw &ea;
+        InvalidNumberException * ea = new InvalidNumberException(amount);
+        throw ea;
     } else if (getBalance() < amount) {
-        InsufficientBalanceException eb(getBalance(), amount);
-        throw &eb;
+        InsufficientBalanceException * eb = new InsufficientBalanceException(getBalance(), amount);
+        throw eb;
     } else {
         this->balance -= amount;
     }
@@ -48,8 +48,8 @@ void Account::add(int amount) {
     // Menambah saldo sebesar amount
     // TODO: melempar InvalidNumberException* bila amount <= 0
     if (amount <= 0) {
-        InvalidNumberException e(amount);
-        throw &e;
+        InvalidNumberException * e = new InvalidNumberException(amount);
+        throw e;
     } else {
         this->balance += amount;
     }

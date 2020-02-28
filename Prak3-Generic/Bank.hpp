@@ -71,7 +71,7 @@ public:
             }
         }
         if (idx == -1) {
-            AccountNotFoundException e(number);
+            AccountNotFoundException * e = new AccountNotFoundException(number);
             throw &e;
         } else {
 
@@ -91,7 +91,7 @@ public:
             fromAccount.withdraw(amount);
         }
         catch(BaseException* base) {
-            TransactionFailedException* fail;
+            TransactionFailedException * fail = new TransactionFailedException(base);
             fail->printMessage();
         }
         // TODO: Menambah balance dari account tujuan dengan method add

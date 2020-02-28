@@ -10,34 +10,33 @@ using namespace std;
 int main() {
     int n, m;
     cin >> n;
-    map<string, bool>hojun;
-    map<string, bool>::iterator it1;
-    for (int i=0;i<n;i++) {
+    map<int, string>hojun;
+    map<int, string>::iterator it1;
+    for (int i=1;i<=n;i++) {
         string input;
         cin >> input;
-        hojun[input] = true;
+        hojun[i] = input;
     }
 
     cin >> m;
-    map<string, bool>qila;
-    map<string, bool>::iterator it2;
-    for (int i=0;i<m;i++) {
+    map<int, string>qila;
+    map<int, string>::iterator it2;
+    for (int i=1;i<=m;i++) {
         string input;
         cin >> input;
-        qila[input] = true;
+        qila[i] = input;
     }
-    for (it2 = qila.begin(); it2 != qila.end(); it2++) {
-        if (hojun.find(it2->first) != hojun.end()) {
-            hojun[it2->first] = false;
+    for (int i=1; i<n; i++) {
+        for (int j=1; j<m; j++) {
+            if (hojun[i] == qila[j]) {
+                hojun.erase(i);
+                qila.erase(j);
+            }
         }
-        continue;
     }
-
 
     for (it1 = hojun.begin(); it1 != hojun.end(); it1++) {
-        if (it1->second == true) {
-            cout << it1->first << endl;
-        }
+        cout << it1->second << endl;
     }
 
   return 0;
