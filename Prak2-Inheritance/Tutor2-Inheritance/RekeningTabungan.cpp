@@ -32,6 +32,5 @@ bool RekeningTabungan::tarikUang(double uang) {
 	bool ok = Rekening::tarikUang(uang);
 	if (ok)
 		Rekening::setSaldo(getSaldo() - biayaTransaksi);
-	;
 	return ok;
 }
