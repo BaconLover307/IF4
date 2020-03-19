@@ -18,9 +18,11 @@ public static void main(String[] args) {
 }
 ```
 ### Contoh Output
+```
 Horrible goose says honk
 Matilda goose says honk honk honk
 Horrible steals shoes
+```
 
 Catatan: dengan mengoverride method toString(), kelas Anda dapat langsung di-pass ke argumen System.out.println.
 
