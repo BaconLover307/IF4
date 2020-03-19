@@ -7,8 +7,7 @@ Pada soal ini anda diminta untuk membuat sebuah kelas Goose, yaitu kelas yang me
 * Memiliki method String toString() yang akan mencetak nama dan “honk” sebanyak honk yang dimiliki objek tersebut
 
 Berikut adalah contoh program main yang memanfaatkan kelas Goose dan outputnya
-Contoh Kode | Contoh Output
------------ | -------------
+### Contoh Kode
 ```java
 public static void main(String[] args) {
   Goose g = new Goose();
@@ -18,7 +17,8 @@ public static void main(String[] args) {
   g.steal("shoes");
 }
 ```
-| Horrible goose says honk
+### Contoh Output
+Horrible goose says honk
 Matilda goose says honk honk honk
 Horrible steals shoes
 
