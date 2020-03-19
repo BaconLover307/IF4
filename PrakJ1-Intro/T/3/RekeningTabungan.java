@@ -17,15 +17,16 @@ class RekeningTabungan extends Rekening {
 		super(n,s,0.05);
 	}
 	public void setor(double x) {
-		saldo += x;
+		this.saldo += x;
 
 	}
 	public void tarik(double x) {
-		if (saldo >= x) {
-			saldo -= x;
+		if (this.saldo >= x) {
+			this.saldo -= x;
 		}
 	}
 	public void update() {
+		this.saldo += (this.getSukuBunga()*this.saldo - this.hitungBiaya());
 
 
 	}

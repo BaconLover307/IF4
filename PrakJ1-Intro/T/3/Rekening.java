@@ -14,15 +14,15 @@
 // Tanggal      : 12-03-2020
 
 abstract class Rekening {
-   	private String nama;
-    private double saldo;
-    private double sukuBunga;
+   	protected String nama;
+    protected double saldo;
+    protected double sukuBunga;
 
     public Rekening(String n, double s, double sB) {
     	nama = n;
     	sukuBunga = sB;
-    	saldo = s;
     	if (saldo < 0) saldo = 0;
+        else saldo = s;
     }
 
     public String getNama() {
@@ -39,7 +39,7 @@ abstract class Rekening {
     abstract public void tarik(double x);
     abstract public void update();
 
-    public void hitungBiaya(){
-
+    public double hitungBiaya(){
+        return Math.min(0.1 * saldo, 10.0);
     }
 }

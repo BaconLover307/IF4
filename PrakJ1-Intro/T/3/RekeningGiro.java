@@ -18,23 +18,42 @@
 // Tanggal      : 12-03-2020
 
 class RekeningGiro extends Rekening {
-	private boolean penalti;
+	protected boolean penalti;
 
 
 	public RekeningGiro(String n, double s) {
 		super(n,s,0.07);
-		penalti = false;
+		this.penalti = false;
+		if (this.saldo < 500) {
+			this.penalti = true;
+		} 
 	}
 	public void setor(double x) {
-		saldo += x;
-		saldo -= 0.1*x;
+		this.saldo += x*0.1;
+		if (this.saldo < 500) {
+			this.penalti = true;
+		}
 
 	}
 	public void tarik(double x) {
-		if (saldo>=1.1*x) saldo -= 1.1*x; 
+		if (this.saldo >= x+0.1) {
+			this.saldo -= x +0.1;
+		}
+		if (this.saldo < 500) {
+			this.penalti = true;
+		}
 
 	}
 	public void update() {
-
+		this.saldo += this.getSukuBunga() * this.saldo - this.hitungBiaya();
+		if (this.penalti == true) {
+			this.saldo -= 10;
+		}
+		if (this.saldo > 500) {
+			this.penalti = false;
+		}
+		if (this.saldo < 0) {
+			this.saldo = 0;
+		}
 	}
 }

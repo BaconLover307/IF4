@@ -1,3 +1,7 @@
+// Nama : Gregorius Jovan Kresnadi
+// NIM  : 13518135
+// Latihan UTS OOP
+
 #include "Account.hpp"
 
 Account::Account() : number(""), balance(0) {
@@ -26,16 +30,16 @@ int Account::getBalance() const {
 }
 
 void Account::withdraw(int amount) {
-    // Mengurangi saldo sebesar amount
-    // TODO: melempar InvalidNumberException* bila amount <= 0
-    // TODO: melempar InsufficientBalanceException* bila this->balance < amount
     if (amount <= 0) {
         throw new InvalidNumberException(amount);
     } else if (this->balance < amount) {
-        throw new InsufficientBalanceException(this->balance, amount);
+        throw new InsufficientBalanceException(getBalance(), amount);
     } else {
         this->balance -= amount;
     }
+    // Mengurangi saldo sebesar amount
+    // TODO: melempar InvalidNumberException* bila amount <= 0
+    // TODO: melempar InsufficientBalanceException* bila this->balance < amount
 }
 
 void Account::add(int amount) {

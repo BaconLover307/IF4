@@ -1,8 +1,14 @@
+// Nama : Gregorius Jovan Kresnadi
+// NIM  : 13518135
+// Latihan UTS OOP
+
 #ifndef __BANK_HPP__
 #define __BANK_HPP__
 
 #include <iostream>
 #include "Account.hpp"
+
+using namespace std;
 
 // Definisikan TransactionFailedException di sini
 // TransactionFailedException merupakan anak dari kelas BaseException, memiliki:
@@ -10,25 +16,27 @@
 // - constructor menerima argumen exc
 // - printMessage yang menuliskan "Transaksi gagal dengan pesan kesalahan:\n"
 //   diikuti dengan pemanggilan exc->printMessage()
-class TransactionFailedException {
-private:
-    BaseException* exc;
-public:
-    TransactionFailedException(BaseException* exc) {
-        this->exc = exc;
-    }
-    void printMessage() {
-        cout << "Transaksi gagal dengan pesan kesalahan:\n";
-        exc->printMessage();
-    }
-    
-};
 
 // Definisikan AccountNotFoundException di sini
 // AccountNotFoundException merupakan anak dari kelas BaseException, memiliki:
 // - number bertipe string
 // - constructor menerima argumen number
 // - printMessage yang menuliskan "Tidak ditemukan rekening dengan nomor {number}\n"
+
+class TransactionFailedException : public BaseException {
+private:
+    BaseException* exc;
+public:
+    TransactionFailedException(BaseException* exc) {
+        this->exc = exc;   
+    }
+
+    void printMessage() {
+        cout << "Transaksi gagal dengan pesan kesalahan:" << endl;
+        exc->printMessage();
+    }
+};
+
 class AccountNotFoundException : public BaseException {
 private:
     string number;
@@ -36,8 +44,9 @@ public:
     AccountNotFoundException(string number) {
         this->number = number;
     }
+
     void printMessage() {
-        cout << "Tidak ditemukan rekening dengan nomor " << number << endl;
+        cout << "Tidak ditemukan rekening dengan nomor " << this->number << endl;
     }
 };
 
@@ -67,10 +76,10 @@ public:
                 idx = i;
             }
         }
-        if (idx == -1) {
-            throw new AccountNotFoundException()
-        }
+        if (idx == -1) 
+            throw new AccountNotFoundException(number);
         return idx;
+        
         // TODO: Melempar AccountNotFoundException* bila tidak ditemukan
         //       rekening dengan nomor number
     }
@@ -78,8 +87,15 @@ public:
     void transfer(string fromNumber, string toNumber, int amount) {
         // Mengirimkan uang sebanyak amount dari account dengan nomor
         // fromNumber ke account dengan nomor toNumber
-        Account& fromAccount = this->accounts[this->findAccountIdx(fromNumber)];
-        Account& toAccount = this->accounts[this->findAccountIdx(toNumber)];
+        try {
+            Account& fromAccount = this->accounts[this->findAccountIdx(fromNumber)];
+            Account& toAccount = this->accounts[this->findAccountIdx(toNumber)];
+            fromAccount.withdraw(amount);
+            toAccount.add(amount);
+        }
+        catch(BaseException* base) {
+            throw new TransactionFailedException(base);
+        }
         // TODO: Menambah balance dari account tujuan dengan method add
         //       dan mengurangi balance dari account asal dengan method withdraw.
         // TODO: Menangkap semua jenis Exception yang dilempar dan melempar TransactionFailedException*.

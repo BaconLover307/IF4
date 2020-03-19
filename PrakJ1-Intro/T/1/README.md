@@ -1,4 +1,5 @@
-Buatlah Stack.java, kelas yang mensimulasikan stack dengan tipe elemen int. Kelas ini memiliki 2 jenis constructor:
+#Tutor 1-1
+uatlah Stack.java, kelas yang mensimulasikan stack dengan tipe elemen int. Kelas ini memiliki 2 jenis constructor:
 
 * default constructor, membuat stack dengan ukuran 10
 * user defined constructor, menerima argumen int sebagai ukuran stack

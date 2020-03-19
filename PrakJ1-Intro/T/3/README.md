@@ -1,3 +1,4 @@
+#Tutor 1-3
 Sebuah bank membutuhkan aplikasi untuk pengelolaan rekening. Pada bank tersebut terdapat 3 jenis rekening, yaitu RekeningTabungan, RekeningGiro, dan RekeningDeposito. Tugas Anda adalah mengimplementasikan kelas-kelas berikut untuk membantu pembuatan aplikasi tersebut.
 
 1. Abstract Class Rekening
@@ -36,7 +37,7 @@ Sebuah bank membutuhkan aplikasi untuk pengelolaan rekening. Pada bank tersebut 
   - Mengimplementasikan method setor(double) yang mencetak "Tidak dapat melakukan penyetoran uang untuk rekening ini." diakhiri newline.
   - Mengimplementasikan method tarik(double) yang mencetak "Tidak dapat melakukan penarikan uang sebagian untuk rekening ini."   - newline.
   - Mengimplementasikan method update() yang mengupdate nilai saldo setelah 1 bulan. Update dilakukan dengan cara menambahkan saldo   - bunga yang didapatkan (jika 1 tahun berlalu) dan menguranginya dengan biaya yang dikenakan.
-  - Method tarik() yang menarik semua saldo yang terdapat pada rekening. Jika penarikan dilakukan sebelum 1 tahun akan terdapat   - sebesar 20% dari saldo yang ditandai dengan mencetak "Anda terkena penalti sebesar <penalti>." diakhiri newline.
+  - Method tarik() yang menarik semua saldo yang terdapat pada rekening. Jika penarikan dilakukan sebelum 1 tahun akan terdapat   - sebesar 20% dari saldo yang ditandai dengan mencetak "Anda terkena penalti sebesar penalti." diakhiri newline.
 
 Perhitungan bunga dan biaya yang dikenakan pada method update() dilakukan terhadap saldo pada saat itu (belum dikenakan biaya dan bunga).
 
