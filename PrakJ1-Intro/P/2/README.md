@@ -1,4 +1,4 @@
-#Prak 1-2
+# Prak 1-2
 Diberikan kelas Animal, buatlah kelas turunan Cow dan Human.
 
 Kelas Cow memiliki constructor yang tidak menerima argumen. Jumlah kakinya (legs) adalah 4. Bila ia makan "grass", maka ia tidak lapar lagi (hungry menjadi false). Bila ia berlari, ia akan memanggil Animal.run, lalu menuliskan "Cow is running" ke layar, diikuti newline.

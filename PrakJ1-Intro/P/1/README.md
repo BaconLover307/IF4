@@ -1,4 +1,4 @@
-#Prak 1-1
+# Prak 1-1
 Pada soal ini anda diminta untuk membuat sebuah kelas Goose, yaitu kelas yang merepresentasikan angsa dari sebuah game bernama “Untitled Goose Game”. Berikut adalah spesifikasi dari kelas Goose:
 
 * Memiliki atribut name (String), dan honk (int).

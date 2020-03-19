@@ -1,4 +1,4 @@
-#Prak 1-4
+# Prak 1-4
 Java sudah menyediakan beberapa interface untuk dapat diimplementasikan. Salah satunya adalah interface Comparable. Dengan mengimplementasikan interface Comparable, Anda dapat menggunakan library Java untuk sort, dan lain-lainnya.
 
 Untuk mengimplemen interface Comparable, sebuah kelas harus mendefinisikan method compareTo(). Sebagai contoh, ini adalah kelas Mahasiswa yang mengimplementasikan Comparable.

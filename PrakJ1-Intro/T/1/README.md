@@ -1,4 +1,4 @@
-#Tutor 1-1
+# Tutor 1-1
 uatlah Stack.java, kelas yang mensimulasikan stack dengan tipe elemen int. Kelas ini memiliki 2 jenis constructor:
 
 * default constructor, membuat stack dengan ukuran 10

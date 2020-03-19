@@ -1,4 +1,4 @@
-#Prak 1-3
+# Prak 1-3
 Buatlah sebuah kelas Employee dengan spesifikasi sebagai berikut:
 
 * Memiliki atribut bernama hasMarried bertipe boolean yang memiliki nilai default false
