@@ -1,12 +1,15 @@
-# Tucil3-Stima -- 15 Puzzle Solver dengan Algoritma Branch and Bound
+# Tucil3-Stima -- Penyelesaian Persoalan 15-Puzzle dengan Algoritma Branch and Bound
 Program ini adalah contoh pengaplikasian strategi algoritma Branch and Bound untuk menyelesaikan sebuah 15-puzzle
 
-## Instalasi Program - Windows
-Program ini dibuat menggunakan bahasa pemrograman Python oleh karena itu dibutuhkan sebuah Python interpreter versi 3. Python dapat diunduh melalui https://www.python.org/downloads/
+## Author
+Program ini dibuat untuk memenuhi salah satu Tugas Kecil IF2211 Strategi Algoritma Teknik Informatika ITB. Adapun pembuat dari program ini adalah:
+- Gregorius Jovan Kresnadi - 13518135
 
+## Instalasi Program - Windows / Linux
+Program ini dibuat menggunakan bahasa pemrograman Python oleh karena itu dibutuhkan sebuah Python3 interpreter. Python dapat diunduh melalui https://www.python.org/downloads/
 
 ## Instalasi Program - Linux
-Program ini dibuat menggunakan bahasa pemrograman python oleh karena itu dibutuhkan bahasa pemrograman python versi 3. Python dapat diunduh dengan cara membuka terminal komputer, dan mengetik perintah berikut:
+Program ini dibuat menggunakan bahasa pemrograman python oleh karena itu dibutuhkan sebuah Python3 interpreter. Python dapat diunduh dengan cara membuka terminal komputer, dan mengetik perintah berikut:
 ```bash
 $ sudo apt-get install python3.7
 ```
@@ -56,7 +59,5 @@ Ketika program dijalankan, maka Anda memiliki 2 pilihan, yaitu pilihan 1 yang ak
 
 Kemudian Anda diberikan pilihan untuk menampilkan visualisasi langkah dari penyelesaian puzzle. Ketik 'y' untuk menampilkan semua matriks dari simpul yang dilalui sampai ke simpul tujuan.
 
-## Kontributor
-Program ini dibuat untuk memenuhi salah satu Tugas Kecil IF2211 Strategi Algoritma Teknik Informatika ITB. Adapun pembuat dari program ini adalah:
-- Gregorius Jovan Kresnadi - 13518135
+
 
