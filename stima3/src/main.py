@@ -30,9 +30,10 @@ def readPuzzle(menu):
 
 def printPuzzle(puzzle):
     for x in puzzle:
+        print("+----+----+----+----+")
         print("|", end="")
         for y in x:
-            out = " "
+            out = ""
             num = y
             if (num == 16):
                 out += "   "
@@ -42,6 +43,7 @@ def printPuzzle(puzzle):
                 out += (" "+str(num))
             print(out, end=" |")
         print()
+    print("+----+----+----+----+")
 
 def Posisi(puzzle, idx):
     pos = 1
@@ -113,11 +115,8 @@ def moveRight(puzzle):
     return temp
 
 # $ ====================== SOLVING FUNCTIONS ======================
-def Ci(node, trail):
-    return Fi(trail) + Gi(node)
-
-def Fi(trail):
-    return trail+1
+def Ci(node, depth):
+    return depth + Gi(node)
 
 def Gi(puzzle):
     count = 0
@@ -129,67 +128,95 @@ def Gi(puzzle):
             idx += 1
     return count
 
-def generateNodes(node):
+def generateNodes(node, vis):
     new = []
     koor = Koordinat(node[0],16)
-    trail = node[1] + 1
-    if (koor[0] != 0) and node[3] != "down":
+    depth = node[1] + 1
+    if (koor[0] != 0) and node[3][-1] != "d": # MOVEUP
         up = moveUp(node[0])
-        new.append([up,trail,Ci(up,trail),"up"])
-    if (koor[0] != 3) and node[3] != "up":
-        down = moveDown(node[0])
-        new.append([down,trail,Ci(down,trail),"down"])
-    if (koor[1] != 0) and node[3] != "right":
+        if not(str(up) in vis):
+            new.append([up,depth,Ci(up,depth),node[3]+"u"])
+            vis.append(str(up))
+    if (koor[1] != 0) and node[3][-1] != "r": # MOVELEFT
         left = moveLeft(node[0])
-        new.append([left,trail,Ci(left,trail),"left"])
-    if (koor[1] != 3) and node[3] != "left":
+        if not(str(left) in vis):
+            new.append([left,depth,Ci(left,depth),node[3]+"l"])
+            vis.append(str(left))
+    if (koor[0] != 3) and node[3][-1] != "u": # MOVEDOWN
+        down = moveDown(node[0])
+        if not(str(down) in vis):
+            new.append([down,depth,Ci(down,depth),node[3]+"d"])
+            vis.append(str(down))
+    if (koor[1] != 3) and node[3][-1] != "l": # MOVERIGHT
         right = moveRight(node[0])
-        new.append([right,trail,Ci(right,trail),"right"])
+        if not(str(right) in vis):
+            new.append([right,depth,Ci(right,depth),node[3]+"r"])
+            vis.append(str(right))
     return new
 
-def joinList(list, newlist):
-    for i in range (len(newlist)):
-        arr = []
-        for node in newlist:
-            arr.append(node[2])
-        print(arr)
-        lowCost = min(arr)
-        print(lowCost)
-        idxMin = arr.index(lowCost)
-        print(idxMin)
-        j = 0
-        if len(list) == 0:
-            list.append(newlist.pop(idxMin))
-        while j!=len(list):
-            if list[j][2] > lowCost:
-                list.insert(i,newlist.pop(idxMin))
-                break
-            if j==len(list):
-                list.append(newlist.pop(idxMin))
-                break
-            j += 1
-    return list
+def findLowestCost(nodes):
+    costArr=[]
+    for node in nodes:
+        costArr.append(node[2])
+    lowCost = min(costArr)
+    return costArr.index(lowCost)
+    
 
 def solve(puzzle):
-    path = []
-    nodeCount = 0
+    vis = []
+    nodeCount = 1
     if Gi(puzzle) != 0:
-        trail = -1
-        nodes = [[puzzle,trail,Ci(puzzle,trail),"null"]]
-        while 1:
-            evalNode = nodes.pop(0)
+        depth = 0
+        nodes = [[puzzle,depth,Ci(puzzle,depth),"."]]
+        while len(nodes)!=0:
+            idxMin = findLowestCost(nodes)
+            evalNode = nodes.pop(idxMin)
             if (Gi(evalNode[0]) == 0):
+                sol = evalNode
                 break
-            newQueue = generateNodes(evalNode)
+            newQueue = generateNodes(evalNode,vis)
+            if len(newQueue) == 0:
+                continue
             nodeCount += len(newQueue)
-            for i in newQueue:
-                printPuzzle(i[0])
-                print("=============")
-            nodes = joinList(nodes,newQueue)
+            nodes.extend(newQueue)
     print("===== GOAL STATE REACHED =====")
+    printPuzzle(sol[0])
+    return [nodeCount,sol[3][1:]]
+
+# $ ====================== PRINT RESULTS ======================
+
+def traceback(puzzle,path):
     printPuzzle(puzzle)
-    return [nodeCount,path]
-        
+    for c in path:
+        print()
+        print("V    V    V    V   V")
+        print()
+        if c == "u":
+            puzzle = moveUp(puzzle)
+            printPuzzle(puzzle)
+        elif c == "d":
+            puzzle = moveDown(puzzle)
+            printPuzzle(puzzle)
+        elif c == "l":
+            puzzle = moveLeft(puzzle)
+            printPuzzle(puzzle)
+        elif c == "r":
+            puzzle = moveRight(puzzle)
+            printPuzzle(puzzle)
+        time.sleep(.2)
+
+def printPath(path):
+    for c in path:
+        if c == "u":
+            print("Up ", end="")
+        elif c == "d":
+            print("Down ", end="")
+        elif c == "l":
+            print("Left ", end="")
+        elif c == "r":
+            print("Right ", end="")
+    print()
+
 # $ ========================================================
 # $ ====================== INPUT FILE ======================
 print("[]=======================[]")
@@ -212,7 +239,6 @@ print()
 puzzle=[] # Menyimpan matrix
 for line in puzzleFile.readlines():
     puzzle.append( [ int (x) for x in line.split(' ') ] )
-puzzleInit = copyPuzzle(puzzle)
 # $ ====================== POSISI AWAL ======================
 print("=====  Posisi Awal ======")
 printPuzzle(puzzle)
@@ -220,12 +246,15 @@ print()
 
 # $ ====================== KURANG(i) ======================
 print("==  Reachable Goal ==")
+print("+-------+-----------+")
 print("| i\t| Kurang(i) |")
+print("+-------+-----------+")
 sumKurang = 0
 for idx in range(16):
     kur = Kurang(puzzle,idx+1)
     sumKurang += kur
     print("| " + str(idx+1) + "\t| " + str(kur) +"\t    |")
+print("+-------+-----------+")
 if (Posisi(puzzle, 16) in [2,4,5,7,10,12,13,15]):
     X = 1
 else:
@@ -242,17 +271,26 @@ if (solvable%2 == 1):
 else: # $ ================== SOLVE =====================
     start_time = time.time() # $ ================== MEASURE TIME =====================
 if solvable%2 == 0:
-    answers = solve(puzzle)
-    print("===== Time Elapsed : " + str((time.time() - start_time)) + " seconds =====")
-    printResult = input("=====[] Visualise Path? : (y/n*) ")
-    if printResult == "y":
-        print("Printed")
-else:
-    print("===== Time Elapsed : 0.00000000 seconds =====")
-
-
-
-# $ ====================== BRANCH AND BOUND ======================
-
-
+    ans = solve(puzzle)
+    print("=== Simpul yang dibangkitkan: " + str(ans[0]))
+    print("=== Path: ", end="")
+    printPath(ans[1])
+    print("=== Path Length: " + str(len(ans[1])))
+    time_elapsed = time.time() - start_time
+    print("=== Time Elapsed : " + str(time_elapsed) + " seconds =====")
+    print()
+    printResult = input("=====[] Visualise Path? : (y/n) ")
 # $ ====================== PRINT ALL NODES ======================
+    if printResult == "y":
+        traceback(puzzle,ans[1])
+        print()
+        print("=== Simpul yang dibangkitkan: " + str(ans[0]))
+        print("=== Path: ", end="")
+        printPath(ans[1])
+        print("=== Path Length: " + str(len(ans[1])))
+        print("=== Time Elapsed : " + str(time_elapsed) + " seconds =====")
+else:
+    print("=== Simpul yang dibangkitkan: 0")
+    print("=== Path: ")
+    print("=== Path Length: 0")
+    print("=== Time Elapsed : 0.00000000 seconds =====")
