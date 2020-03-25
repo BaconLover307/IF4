@@ -66,44 +66,51 @@ def Kurang(puzzle, idx):
             j += 1
         return count
 
-def Koordinat(puzzle, idx):
-    for x in range(len(puzzle)):
-        for y in range(len(puzzle[x])):
-            if idx == puzzle[x][y]:
-                return [x,y]
+def Koordinat(puzzle, x):
+    for i in range(len(puzzle)):
+        for j in range(len(puzzle[i])):
+            if x == puzzle[i][j]:
+                return [i,j]
+
+def copyPuzzle(puzzle):
+    temp = []
+    for i in range(len(puzzle)):
+        tempI = puzzle[i].copy()
+        temp.append(tempI)
+    return temp
 
 # $ ====================== MOVEMENT FUNCTIONS ======================
 def moveUp(puzzle):
     koor = Koordinat(puzzle,16)
     koorNew = [koor[0]-1,koor[1]]
-    temp = puzzle[koorNew[0]][koorNew[1]]
-    puzzle[koorNew[0],koorNew[1]] = 16
-    puzzle[koor[0],koor[1]] = temp
-    return puzzle
+    temp = copyPuzzle(puzzle)
+    t = temp[koorNew[0]][koorNew[1]]
+    temp[koorNew[0]][koorNew[1]] = 16
+    temp[koor[0]][koor[1]] = t
+    return temp
 
 def moveDown(puzzle):
     koor = Koordinat(puzzle,16)
     koorNew = [koor[0]+1,koor[1]]
-    temp = puzzle[koorNew[0]][koorNew[1]]
-    puzzle[koorNew[0],koorNew[1]] = 16
-    puzzle[koor[0],koor[1]] = temp
-    return puzzle
+    temp = copyPuzzle(puzzle)
+    t = temp[koorNew[0]][koorNew[1]]
+    temp[koorNew[0]][koorNew[1]] = 16
+    temp[koor[0]][koor[1]] = t
+    return temp
 
 def moveLeft(puzzle):
     koor = Koordinat(puzzle,16)
-    koorNew = [koor[0],koor[1]-1]
-    temp = puzzle[koorNew[0]][koorNew[1]]
-    puzzle[koorNew[0],koorNew[1]] = 16
-    puzzle[koor[0],koor[1]] = temp
-    return puzzle
+    temp = copyPuzzle(puzzle)
+    temp[koor[0]].remove(16)
+    temp[koor[0]].insert(koor[1]-1,16)
+    return temp
 
 def moveRight(puzzle):
     koor = Koordinat(puzzle,16)
-    koorNew = [koor[0],koor[1]+1]
-    temp = puzzle[koorNew[0]][koorNew[1]]
-    puzzle[koorNew[0],koorNew[1]] = 16
-    puzzle[koor[0],koor[1]] = temp
-    return puzzle
+    temp = copyPuzzle(puzzle)
+    temp[koor[0]].remove(16)
+    temp[koor[0]].insert(koor[1]+1,16)
+    return temp
 
 # $ ====================== SOLVING FUNCTIONS ======================
 def Ci(node, trail):
@@ -126,55 +133,62 @@ def generateNodes(node):
     new = []
     koor = Koordinat(node[0],16)
     trail = node[1] + 1
-    if (koor[0] != 0):
-        up = moveUp(node)
-        new.append([up,trail,Ci(up,trail)])
-    if (koor[0] != 3):
-        down = moveDown(node)
-        new.append([down,trail,Ci(down,trail)])
-    if (koor[1] != 0):
-        left = moveLeft(node)
-        new.append([left,trail,Ci(left,trail)])
-    if (koor[1] != 3):
-        right = moveRight(node)
-        new.append([right,trail,Ci(right,trail)])
+    if (koor[0] != 0) and node[3] != "down":
+        up = moveUp(node[0])
+        new.append([up,trail,Ci(up,trail),"up"])
+    if (koor[0] != 3) and node[3] != "up":
+        down = moveDown(node[0])
+        new.append([down,trail,Ci(down,trail),"down"])
+    if (koor[1] != 0) and node[3] != "right":
+        left = moveLeft(node[0])
+        new.append([left,trail,Ci(left,trail),"left"])
+    if (koor[1] != 3) and node[3] != "left":
+        right = moveRight(node[0])
+        new.append([right,trail,Ci(right,trail),"right"])
     return new
 
 def joinList(list, newlist):
-    while len(newlist) != 0:
+    for i in range (len(newlist)):
         arr = []
         for node in newlist:
             arr.append(node[2])
+        print(arr)
         lowCost = min(arr)
+        print(lowCost)
         idxMin = arr.index(lowCost)
-        i = 0
-        while i!=len(list):
-            if list[i][3] > lowCost:
+        print(idxMin)
+        j = 0
+        if len(list) == 0:
+            list.append(newlist.pop(idxMin))
+        while j!=len(list):
+            if list[j][2] > lowCost:
                 list.insert(i,newlist.pop(idxMin))
                 break
-            if i==len(list):
-                list.appen(newlist.pop(idxMin))
+            if j==len(list):
+                list.append(newlist.pop(idxMin))
                 break
+            j += 1
     return list
-
-
 
 def solve(puzzle):
     path = []
     nodeCount = 0
     if Gi(puzzle) != 0:
         trail = -1
-        nodes = [[puzzle,trail,Ci(puzzle,trail)]]
-        found = False
-        while not(found):
-            newQueue = generateNodes(nodes.pop(0))
+        nodes = [[puzzle,trail,Ci(puzzle,trail),"null"]]
+        while 1:
+            evalNode = nodes.pop(0)
+            if (Gi(evalNode[0]) == 0):
+                break
+            newQueue = generateNodes(evalNode)
+            nodeCount += len(newQueue)
+            for i in newQueue:
+                printPuzzle(i[0])
+                print("=============")
             nodes = joinList(nodes,newQueue)
-            
-        print("SOLVING")
-    else:
-        print("===== GOAL STATE REACHED =====")
-        printPuzzle(puzzle)
-        return [nodeCount,path]
+    print("===== GOAL STATE REACHED =====")
+    printPuzzle(puzzle)
+    return [nodeCount,path]
         
 # $ ========================================================
 # $ ====================== INPUT FILE ======================
@@ -198,7 +212,7 @@ print()
 puzzle=[] # Menyimpan matrix
 for line in puzzleFile.readlines():
     puzzle.append( [ int (x) for x in line.split(' ') ] )
-puzzleInit = puzzle.copy()
+puzzleInit = copyPuzzle(puzzle)
 # $ ====================== POSISI AWAL ======================
 print("=====  Posisi Awal ======")
 printPuzzle(puzzle)
@@ -227,18 +241,6 @@ if (solvable%2 == 1):
     print("dengan metode Branch and Bound :(")
 else: # $ ================== SOLVE =====================
     start_time = time.time() # $ ================== MEASURE TIME =====================
-    moveUp(puzzle)
-    printPuzzle(puzzle)
-    print("POSISI YANG SALAH: " + str(Gi(puzzle)))
-    print("[]=====================[]")
-    moveLeft(puzzle)
-    printPuzzle(puzzle)
-    print("[]=======================[]")
-    moveDown(puzzle)
-    printPuzzle(puzzle)
-    print("[]=======================[]")
-    moveRight(puzzle)
-    printPuzzle(puzzle)
 if solvable%2 == 0:
     answers = solve(puzzle)
     print("===== Time Elapsed : " + str((time.time() - start_time)) + " seconds =====")
