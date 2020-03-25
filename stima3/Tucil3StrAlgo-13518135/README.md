@@ -36,7 +36,7 @@ Untuk menjalankan program, silakan buka terminal pada directory di mana program 
 ```bash
 C:\Users\<user>\Documents\Tucil3StrAlgo-13518135>
 # cd src
-C:\Users\<user>\Documents\Tucil3StrAlgo-13518135\bin>
+C:\Users\<user>\Documents\Tucil3StrAlgo-13518135\src>
 # py main.py
 ```
 
