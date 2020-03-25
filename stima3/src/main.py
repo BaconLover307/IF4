@@ -77,33 +77,40 @@ def moveUp(puzzle):
     koor = Koordinat(puzzle,16)
     koorNew = [koor[0]-1,koor[1]]
     temp = puzzle[koorNew[0]][koorNew[1]]
-    puzzle[koorNew[0]].insert(koorNew[1],16)
-    puzzle[koorNew[0]].remove(temp)
-    puzzle[koor[0]].insert(koor[1],temp)
-    puzzle[koor[0]].remove(16)
+    puzzle[koorNew[0],koorNew[1]] = 16
+    puzzle[koor[0],koor[1]] = temp
+    return puzzle
 
 def moveDown(puzzle):
     koor = Koordinat(puzzle,16)
     koorNew = [koor[0]+1,koor[1]]
     temp = puzzle[koorNew[0]][koorNew[1]]
-    puzzle[koorNew[0]].insert(koorNew[1],16)
-    puzzle[koorNew[0]].remove(temp)
-    puzzle[koor[0]].insert(koor[1],temp)
-    puzzle[koor[0]].remove(16)
+    puzzle[koorNew[0],koorNew[1]] = 16
+    puzzle[koor[0],koor[1]] = temp
+    return puzzle
 
 def moveLeft(puzzle):
     koor = Koordinat(puzzle,16)
-    puzzle[koor[0]].remove(16)
-    puzzle[koor[0]].insert(koor[1]-1,16)
+    koorNew = [koor[0],koor[1]-1]
+    temp = puzzle[koorNew[0]][koorNew[1]]
+    puzzle[koorNew[0],koorNew[1]] = 16
+    puzzle[koor[0],koor[1]] = temp
+    return puzzle
 
 def moveRight(puzzle):
     koor = Koordinat(puzzle,16)
-    puzzle[koor[0]].remove(16)
-    puzzle[koor[0]].insert(koor[1]+1,16)
+    koorNew = [koor[0],koor[1]+1]
+    temp = puzzle[koorNew[0]][koorNew[1]]
+    puzzle[koorNew[0],koorNew[1]] = 16
+    puzzle[koor[0],koor[1]] = temp
+    return puzzle
 
 # $ ====================== SOLVING FUNCTIONS ======================
-def Ci(node):
-    print("Ci")
+def Ci(node, trail):
+    return Fi(trail) + Gi(node)
+
+def Fi(trail):
+    return trail+1
 
 def Gi(puzzle):
     count = 0
@@ -115,7 +122,60 @@ def Gi(puzzle):
             idx += 1
     return count
 
+def generateNodes(node):
+    new = []
+    koor = Koordinat(node[0],16)
+    trail = node[1] + 1
+    if (koor[0] != 0):
+        up = moveUp(node)
+        new.append([up,trail,Ci(up,trail)])
+    if (koor[0] != 3):
+        down = moveDown(node)
+        new.append([down,trail,Ci(down,trail)])
+    if (koor[1] != 0):
+        left = moveLeft(node)
+        new.append([left,trail,Ci(left,trail)])
+    if (koor[1] != 3):
+        right = moveRight(node)
+        new.append([right,trail,Ci(right,trail)])
+    return new
 
+def joinList(list, newlist):
+    while len(newlist) != 0:
+        arr = []
+        for node in newlist:
+            arr.append(node[2])
+        lowCost = min(arr)
+        idxMin = arr.index(lowCost)
+        i = 0
+        while i!=len(list):
+            if list[i][3] > lowCost:
+                list.insert(i,newlist.pop(idxMin))
+                break
+            if i==len(list):
+                list.appen(newlist.pop(idxMin))
+                break
+    return list
+
+
+
+def solve(puzzle):
+    path = []
+    nodeCount = 0
+    if Gi(puzzle) != 0:
+        trail = -1
+        nodes = [[puzzle,trail,Ci(puzzle,trail)]]
+        found = False
+        while not(found):
+            newQueue = generateNodes(nodes.pop(0))
+            nodes = joinList(nodes,newQueue)
+            
+        print("SOLVING")
+    else:
+        print("===== GOAL STATE REACHED =====")
+        printPuzzle(puzzle)
+        return [nodeCount,path]
+        
 # $ ========================================================
 # $ ====================== INPUT FILE ======================
 print("[]=======================[]")
@@ -138,7 +198,7 @@ print()
 puzzle=[] # Menyimpan matrix
 for line in puzzleFile.readlines():
     puzzle.append( [ int (x) for x in line.split(' ') ] )
-
+puzzleInit = puzzle.copy()
 # $ ====================== POSISI AWAL ======================
 print("=====  Posisi Awal ======")
 printPuzzle(puzzle)
@@ -180,12 +240,13 @@ else: # $ ================== SOLVE =====================
     moveRight(puzzle)
     printPuzzle(puzzle)
 if solvable%2 == 0:
-    print("===== Time Elapsed : " + str((time.time() - start_time)) + " s =====")
-    printResult = input("Print Nodes? : (y/n*) ")
+    answers = solve(puzzle)
+    print("===== Time Elapsed : " + str((time.time() - start_time)) + " seconds =====")
+    printResult = input("=====[] Visualise Path? : (y/n*) ")
     if printResult == "y":
         print("Printed")
 else:
-    print("===== Time Elapsed : 0.00000000 s =====")
+    print("===== Time Elapsed : 0.00000000 seconds =====")
 
 
 
