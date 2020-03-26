@@ -10,5 +10,6 @@ public class mainGoose{
     System.out.println(g);
     System.out.println(h);
     g.steal("shoes");
+    System.out.println(11/2);
     }
 }

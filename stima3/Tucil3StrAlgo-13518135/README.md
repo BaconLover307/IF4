@@ -38,6 +38,9 @@ C:\Users\<user>\Documents\Tucil3StrAlgo-13518135>
 # cd src
 C:\Users\<user>\Documents\Tucil3StrAlgo-13518135\src>
 # py main.py
+==== ATAU ====
+# python3 main.py
+
 ```
 
 ```
