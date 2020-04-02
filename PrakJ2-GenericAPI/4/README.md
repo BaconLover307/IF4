@@ -7,36 +7,9 @@ Mula-mula, Hojun akan menuliskan N kata tersebut di atas kertas. Lalu, Qila akan
 Kini tugas Anda adalah membuat kelas Game yang memiliki static method static void run(String[] hojun, String[] qila). hojun adalah daftar kata Hojun dengan panjang N dan qila adalah daftar kata Qila dengan panjang M. Program akan menuliskan daftar kata yang tidak dicoret di atas kertas, dipisahkan oleh baris baru. Urutan dari kata yang dituliskan sembarang.
  Contoh Input |	Contoh Output
 --------------|---------------
-// qila |
-Budi |
-Budi |
-adalah | Budi
-Budi | Budi
-// hojun | adalah
-Budi |
-Bermain |
-Bola |
-Adalah |
- | 
-// qila |
-Saya |
-Suka |
-Pemograman | Saya
-Java | Suka
-// hojun | Pemrograman
-Tuan | Java
-Putri |
-Tidur |
- | 
-// qila | 
-Saya | 
-Mengantuk | 
-// hojun | 
-Saya | 
-Ingin | 
-Tidur |
-Karena |
-Mengantuk | 
+// qila<br>Budi<br>Budi<br>adalah<br>Budi<br>// hojun<br>Budi<br>Bermain<br>Bola<br>Adalah | Budi<br>Budi<br>adalah
+// qila<br>Saya<br>Suka<br>Pemograman<br>Java<br>// hojun<br>Tuan<br>Putri<br>Tidur | Saya<br>Suka<br>Pemrograman<br>Java
+// qila<br>Saya<br>Mengantuk<br>// hojun<br>Saya<br>Ingin<br>Tidur<br>Karena<br>Mengantuk | 
 
 Kumpulkan Game.java
 
