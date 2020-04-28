@@ -10,11 +10,11 @@
 
 // Nama         : Gregorius Jovan Kresnadi
 // NIM          : 13518135
-// Tanggal      : 12-03-2020
+// Tanggal      : 26-04-2020
 
 class RekeningTabungan extends Rekening {
 	public RekeningTabungan(String n, double s) {
-		super(n,s,0.05);
+		super(n, s, 0.05);
 	}
 	public void setor(double x) {
 		this.saldo += x;
@@ -26,8 +26,7 @@ class RekeningTabungan extends Rekening {
 		}
 	}
 	public void update() {
-		this.saldo += (this.getSukuBunga()*this.saldo - this.hitungBiaya());
-
-
+        this.saldo += this.getSukuBunga()*this.getSaldo();
+        this.saldo -= this.hitungBiaya();
 	}
 }
