@@ -11,28 +11,28 @@
 
 // Nama         : Gregorius Jovan Kresnadi
 // NIM          : 13518135
-// Tanggal      : 12-03-2020
+// Tanggal      : 26-04-2020
 
 abstract class Rekening {
    	protected String nama;
     protected double saldo;
     protected double sukuBunga;
 
-    public Rekening(String n, double s, double sB) {
-    	nama = n;
-    	sukuBunga = sB;
-    	if (saldo < 0) saldo = 0;
-        else saldo = s;
+    public Rekening(String nama, double saldo, double sukuBunga) {
+    	this.nama = nama;
+    	this.sukuBunga = sukuBunga;
+    	if (saldo < 0) this.saldo = 0;
+        else this.saldo = saldo;
     }
 
     public String getNama() {
-    	return nama;
+    	return this.nama;
     }
     public double getSaldo() {
-    	return saldo;
+    	return this.saldo;
     }
     public double getSukuBunga() {
-    	return sukuBunga;
+    	return this.sukuBunga;
     }
 
     abstract public void setor(double x);
@@ -40,6 +40,6 @@ abstract class Rekening {
     abstract public void update();
 
     public double hitungBiaya(){
-        return Math.min(0.1 * saldo, 10.0);
+        return Math.min(0.1 * this.saldo, 10.0);
     }
 }

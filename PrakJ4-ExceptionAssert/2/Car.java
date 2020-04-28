@@ -101,7 +101,7 @@ public class Car {
 		Catch tipe InvalidInputCarException, cetak message dari exception tersebut diakhiri newline
 		Catch tipe FuelException, cetak message dari exception tersebut diakhiri newline
 	*/
-	public void service(Fuel t_fuel, int amount_in_liter, int t_gear, int t_ac_power) {
+	public void service(Fuel t_fuel, int amount_in_liter, int t_gear, int t_ac_power) throws Exception {
         try {
 			start();
 			fillingFuel(t_fuel, amount_in_liter);
