@@ -1,20 +1,22 @@
+import java.lang.Thread;
+
 public class ScrapperThread extends Thread {
-    private OnGetPriceListener listener;
+    private ScrapperListener listener;
+    private String url;
 
-    public ScrapperThread(OnGetPriceListener listener){
+    public ScrapperThread(ScrapperListener listener, String url) {
         this.listener = listener;
+        this.url = url;
     }
 
+    @Override
     public void run() {
-        try {
-            wait();
-            listener.scrapLowestPrice();
-            notify();
-        } catch (Exception e) {
-        }
+        Website w = new Website(this.url);
+        this.listener.onScrapeListener(w.getPrice());
+        this.notify();
     }
 
-    public interface OnGetPriceListener {
-        int scrapLowestPrice(); 
-    } 
+    public interface ScrapperListener {
+        public void onScrapeListener(int price);
+    }
 }

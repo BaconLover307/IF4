@@ -16,7 +16,7 @@ public class Game {
 
         for (String a : qila) {
             Integer freq = h.get(a);
-            h.put(a, (freq == null) ? 1 : freq--);
+            h.put(a, (freq == null) ? 0 : freq--);
         }
 
         for (Map.Entry<String, Integer> a : h.entrySet()) {
