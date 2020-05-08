@@ -1,3 +1,8 @@
+// Nama     : Gregorius Jovan Kresnadi
+// NIM      : 13518135
+// Tanggal  : 08-05-2020
+// Topik 	: Assertion
+
 public class AccountTest {
     public AccountTest() {
        // Tidak melakukan apa-apa

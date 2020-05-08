@@ -1,11 +1,13 @@
-// Nama         : Gregorius Jovan Kresnadi
-// NIM          : 13518135
-// Tanggal      : 29-04-2020
-// Topik 		: API
+import java.util.HashMap;
+import java.util.Map;
 
-import java.util.*;
+public class Game1 {
+    // private HashMap<String, Integer> map;
 
-class Game {
+    // public Game1() {
+    //     map = new HashMap<String, Integer>();
+    // }
+    
     public static void run(String[] hojun, String[] qila) {
         HashMap<String, Integer> map = new HashMap<>();
         for (String h: hojun) {
@@ -14,14 +16,15 @@ class Game {
         }
 
         for (String q: qila) {
-            Integer freq = map.get(q);
-            map.put(q, (freq == null) ? 0 : freq-1);
+            Integer freq = map.get(h);
+            map.put(h, (freq == null) ? 0 : freq-1);
         }
 
         for (Map.Entry<String, Integer> kata : map.entrySet()) {
             for (int i = 0; i<kata.getValue(); i++) {
                 System.out.println(kata.getKey());
-            }
         }
+    }
+
     }
 }
